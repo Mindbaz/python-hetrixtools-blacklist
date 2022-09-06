@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (C) 2021 Mindbaz
+# Copyright (C) 2022 Mindbaz
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ from setuptools import setup;
 
 with open ( os.path.join ( os.path.dirname ( os.path.abspath ( __file__ ) ), 'README.md' ) , 'r', encoding='utf-8' ) as fh:
     long_description = fh.read ();
-    
+
 from hetrixtools_blacklist_api import __version__;
 
 setup (
@@ -39,6 +39,7 @@ setup (
         'entry_points_hetrixtools_blacklist_api'
     ],
     install_requires = [
+        'requests'
     ],
     tests_require = [
         'nose',
