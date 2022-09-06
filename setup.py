@@ -17,7 +17,7 @@
 import os;
 from setuptools import setup;
 
-with open ( os.path.join ( os.path.dirname ( os.path.abspath ( __file__ ) ), 'README.md' ) , 'r', encoding='utf-8' ) as fh:
+with open ( os.path.join ( os.path.dirname ( os.path.abspath ( __file__ ) ), 'README.md' ), 'r', encoding = 'utf-8' ) as fh:
     long_description = fh.read ();
 
 from hetrixtools_blacklist_api import __version__;
