@@ -15,18 +15,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Some utils functions"""
+"""This module contains some utils functions"""
 
 import os
 
+
 def read_file ( file_path: str, open_mode: str = "r", encoding: str = "utf-8", verbose: bool = False ) -> str:
-    """
-    Read the contents of a file
-    :param file_path: Path to the file to read
-    :param open_mode: String representing the open mode to use ("r" by default)
-    :param encoding: String representing the encoding to use ("utf-8" by defaul)
-    :param verbose: Verbose mode (False by default)
-    :return: A string containing the file content
+    """Read a file and returns its content
+
+    Args:
+        file_path: Path to the file to read
+        open_mode: String representing the open mode to use ("r" by default)
+        encoding: String representing the encoding to use ("utf-8" by default)
+        verbose: Verbose mode (False by default)
+
+    Returns:
+        str: file content as string
     """
     if ( not os.path.isfile ( file_path ) ):
         if ( verbose ):

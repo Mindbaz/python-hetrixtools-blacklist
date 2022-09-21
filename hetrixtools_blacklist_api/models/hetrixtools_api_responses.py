@@ -15,28 +15,38 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-""""""
+"""This module contains the models returned by the HetrixTools API"""
 
-from hetrixtools_blacklist_api.blacklist_monitor import BlacklistMonitor
+from typing import List
+
+from hetrixtools_blacklist_api.models.responses import ResponseBlacklistMonitor
 
 
-class BlacklistMonitorResponse ():
-    """
+class APIResponseBlacklistMonitor ():
+    """Response class returned by the HetrixTools API when querying blacklist monitor object(s)
 
+    Attributes:
+        status_code: status code returned by the API call
+        ok: True if status_code < 400
+        list_blacklist_monitor: list of ResponseBlacklistMonitor object
+        total_records: number of blacklist monitor records in total
+        previous_page_call_url: url to the previous page
+        next_page_call_url: url to the next page
     """
 
     def __init__ ( self, status_code: int, raw_json: dict ):
-        """
+        """Default constructor
 
-        :param status_code:
-        :param raw_json:
+        Args:
+            status_code: status code returned by the API call
+            raw_json: object returned by the API
         """
         """"""
         self.status_code: int = int ( status_code );
         """"""
         self.ok: bool = True if self.status_code < 400 else False;
         """"""
-        self.list_blacklist_monitor: list = self.__parse_list_blacklist_monitor ( raw_json [ 0 ] )
+        self.list_blacklist_monitor: List [ ResponseBlacklistMonitor ] = self.__parse_list_blacklist_monitor ( raw_json [ 0 ] )
         """"""
         self.total_records: int = raw_json [ 1 ] [ 'Meta' ].get ( 'Total_Records', 0 );
         """"""
@@ -44,8 +54,16 @@ class BlacklistMonitorResponse ():
         """"""
         self.next_page_call_url: str = raw_json [ 1 ] [ 'Links' ] [ 'Pages' ].get ( 'Next', None );
 
-    def __parse_list_blacklist_monitor ( self, raw_json: dict ) -> list:
+    def __parse_list_blacklist_monitor ( self, raw_json: dict ) -> List [ ResponseBlacklistMonitor ]:
+        """Parse raw json returned by the API into a custom object
+
+        Args:
+            raw_json: json returned by the API
+
+        Returns:
+            List [ ResponseBlacklistMonitor ]:
+        """
         list_blacklist_monitor = [ ]
         for black_list_monitor_item in raw_json:
-            list_blacklist_monitor.append ( BlacklistMonitor ( black_list_monitor_item ) )
+            list_blacklist_monitor.append ( ResponseBlacklistMonitor ( black_list_monitor_item ) )
         return list_blacklist_monitor

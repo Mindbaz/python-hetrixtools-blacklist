@@ -15,24 +15,29 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-""""""
+"""This module act as an additionnal layer for the api_wrapper"""
 
+from typing import List
+
+from hetrixtools_blacklist_api.models.responses import ResponseBlacklistMonitor
 from hetrixtools_blacklist_api.api_wrapper import APIWrapper
-from hetrixtools_blacklist_api.raw_responses import BlacklistMonitorResponse
+from hetrixtools_blacklist_api.models.hetrixtools_api_responses import APIResponseBlacklistMonitor
 
 
 class HetrixTools ():
-    """
+    """Additionnal class layer that manages the api_wrapper calls and provides better responses model
 
+    Attributes:
+        __api (APIWrapper): APIWrapper instance
     """
 
     def __init__ ( self, token_file_path: str, use_relay_endpoint: bool = False, verbose: bool = False ) -> None:
-        """
+        """Default constructor
 
-        :param token_file_path:
-        :param pool_size:
-        :param use_relay_endpoint:
-        :param verbose:
+        Args:
+            token_file_path:
+            use_relay_endpoint:
+            verbose:
         """
         """API instance"""
         self.__api = APIWrapper ( token_file_path = token_file_path, use_relay_endpoint = use_relay_endpoint, verbose = verbose );
@@ -53,39 +58,26 @@ class HetrixTools ():
         # if remove_response.ok:
         #     print (remove_response.json())
 
-    def get_list_blacklist_monitor ( self ) -> list:
-        """
-        Get the whole list of blacklist monitor managed by HetrixTools
-        :return: A list of hetrixtools_blacklist_api.raw_responses.BlacklistMonitorResponse object
+    def get_list_blacklist_monitor ( self ) -> List [ ResponseBlacklistMonitor ]:
+        """Get the whole list of blacklist monitor managed by HetrixTools
 
-        .. note:: (multiple API calls may be needed)
+        Returns:
+            List [ ResponseBlacklistMonitor ]: list of objects retrieved
+
+        Note:
+            Multiple API calls may be needed
         """
         total_list_blacklist_monitor = [ ];
+        ## Get first page list of blacklist monitor
         request_response = self.__api.get_list_blacklist_monitor ( page_number = 0, result_per_page = 1024 );
         if request_response.ok:
-            response_object = BlacklistMonitorResponse ( request_response.status_code, request_response.json () )
+            ## Build object from raw dict response
+            response_object = APIResponseBlacklistMonitor ( request_response.status_code, request_response.json () )
+            ## Add object to total list
             total_list_blacklist_monitor.extend ( response_object.list_blacklist_monitor );
+            ## loop until there is another page to query
             while response_object.next_page_call_url is not None and response_object.ok:
                 request_response = self.__api.get ( response_object.next_page_call_url );
-                response_object = BlacklistMonitorResponse ( request_response.status_code, request_response.json () )
+                response_object = APIResponseBlacklistMonitor ( request_response.status_code, request_response.json () )
                 total_list_blacklist_monitor.extend ( response_object.list_blacklist_monitor );
         return total_list_blacklist_monitor
-
-    # TODO model ? laissez en raw ? Juste le get ?
-    # def get_raw_api_status ( self ):
-    #     """
-    #
-    #     :return:
-    #     """
-    #     request_response = self.__api.api_status ();
-    #     print(request_response.content)
-    #     return request_response;
-    #
-    # def get_raw_list_contacts_list ( self ):
-    #     """
-    #
-    #     :return:
-    #     """
-    #     request_response = self.__api.list_contact_lists ();
-    #     print(request_response.content)
-    #     return request_response;

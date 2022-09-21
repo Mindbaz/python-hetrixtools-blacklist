@@ -27,7 +27,7 @@ from hetrixtools_blacklist_api import __version__;
 
 
 def parse_arguments () -> argparse.Namespace:
-    parser = argparse.ArgumentParser ( prog = 'hetrix_tools_dl_list_blacklist_monitor' );
+    parser = argparse.ArgumentParser ( prog = 'hetrix_tools_get_list_blacklist_monitor' );
 
     ## All arguments
     parser.add_argument ( '--token_file', type = str, help = 'HetrixTools API token file' );
@@ -39,11 +39,18 @@ def parse_arguments () -> argparse.Namespace:
 
 
 def print_version () -> None:
+    """Print the current project version
+    """
     print ( __version__ );
     exit ( 0 );
 
 
 def print_verbose ( args: argparse.Namespace ) -> None:
+    """Print additional information when verbose enabled
+
+    Args:
+        args: argparse namespace
+    """
     print ( 'v v v v v v v v v v v v v v v v v v v v v' );
     print ( 'Arguments list : ' );
     for arg in sorted ( vars ( args ) ):
@@ -52,15 +59,23 @@ def print_verbose ( args: argparse.Namespace ) -> None:
 
 
 def validate_arguments ( args: argparse.Namespace ) -> None:
+    """Validate some arguments and exit in case of bad/missing parameters
+
+    Args:
+        args: argparse namespace
+    """
     ## --token arg check
-    if ( args.token_file is None ):
+    if ( not args.token_file ):
         print ( 'Missing --token file. -h to show help' );
         exit ( 2 );
     if ( not os.path.isfile ( args.token_file ) ):
         print ( 'Argument \'--token\' do not corresponds to an existing file. -h to show help' );
+        exit ( 2 );
 
 
-def run ():
+def run () -> None:
+    """Main function called
+    """
     ## Parse arguments from script user input
     args = parse_arguments ();
 
@@ -72,7 +87,7 @@ def run ():
     validate_arguments ( args )
 
     ## Print args to console
-    if ( args.verbose is True ):
+    if ( args.verbose ):
         print_verbose ( args );
 
     ## Begin
@@ -82,6 +97,7 @@ def run ():
     all_blacklist_monitor_list = hetrix_tools_blacklist_client.get_list_blacklist_monitor ();
     for blacklist_monitor in all_blacklist_monitor_list:
         print ( blacklist_monitor );
+
 
 if __name__ == "__main__":
     run ();
