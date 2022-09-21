@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-""""""
+"""Retrieves the blacklist_monitor for a given account (token needed) and display the results in a 'visual way'"""
 
 import os
 import sys
