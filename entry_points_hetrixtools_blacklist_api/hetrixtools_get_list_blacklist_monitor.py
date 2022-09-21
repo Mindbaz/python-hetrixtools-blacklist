@@ -18,10 +18,8 @@
 """Retrieves the blacklist_monitor for a given account (token needed) and display the results in a 'visual way'"""
 
 import os
-import sys
 import argparse
 
-sys.path.insert ( 0, os.path.dirname ( os.path.dirname ( os.path.abspath ( __file__ ) ) ) );
 from hetrixtools_blacklist_api.hetrixtools import HetrixTools;
 from hetrixtools_blacklist_api import __version__;
 
