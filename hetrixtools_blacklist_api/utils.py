@@ -34,7 +34,16 @@ def read_file ( file_path: str, open_mode: str = "r", encoding: str = "utf-8", v
     """
     if ( not os.path.isfile ( file_path ) ):
         if ( verbose ):
-            print ( f"Trying to reads a non-existing file: {file_path}" )
-        return ""
-    with open ( file = file_path, mode = open_mode, encoding = encoding ) as file:
-        return file.read ()
+            print ( f"Trying to reads a non-existing file: {file_path}" );
+        else:
+            pass;
+        return "";
+    try:
+        with open ( file = file_path, mode = open_mode, encoding = encoding ) as file:
+            return file.read ();
+    except LookupError as e:
+        print ( f"LookupError exception catched while reading file {file_path}: {e}" );
+        return "";
+    except ValueError as e:
+        print ( f"ValueError exception catched while reading file {file_path}: {e}" );
+        return "";
