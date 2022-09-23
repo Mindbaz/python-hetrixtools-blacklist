@@ -48,6 +48,9 @@ class ResponseRBLEntry ():
             string = string + f"\t{var_key} = {getattr ( self, var_key )}\n";
         return f"{string}";
 
+    def __eq__(self, other):
+        return self.rbl_source == other.rbl_source \
+               and self.delist_url == other.delist_url;
 
 class ResponseBlacklistMonitor ():
     """Response class returned by this project when treating with Blacklist monitor
@@ -117,3 +120,30 @@ class ResponseBlacklistMonitor ():
             for blacklisted_on_raw_item in raw_json:
                 list_blacklisted_on.append ( ResponseRBLEntry ( blacklisted_on_raw_item ) );
         return list_blacklisted_on;
+
+
+    def __eq__( self, other ) -> bool:
+        """Check equality between this object and another ResponseBlacklistMonitor object
+
+        Note:
+            This method exists mainly for testing purpose
+
+        Args:
+            other: ResponseBlacklistMonitor object to test for equality
+
+        Returns:
+            bool: True if both objects are equals
+        """
+        index = 0;
+        if ( len ( self.list_rbl_entry ) != len ( other.list_rbl_entry ) ):
+            return False;
+        for index, item in enumerate ( self.list_rbl_entry ):
+            if ( item != other.list_rbl_entry [ index ] ):
+                return False;
+        return self.id == other.id \
+               and self.label == other.label \
+               and self.target == other.target \
+               and self.type == other.type \
+               and self.status == other.status \
+               and self.last_check == self.last_check \
+               and self.blacklisted_count == self.blacklisted_count;
