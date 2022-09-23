@@ -9,7 +9,7 @@ from unittest.mock import patch, Mock;
 from hetrixtools_blacklist_api.api_wrapper import APIWrapper;
 
 
-class APIWrapper__return_response_errorTest ( unittest.TestCase ):
+class APIWrapper__build_response_objectTest ( unittest.TestCase ):
     def test_msg_assigned ( self ):
         """API Instance"""
         api_wrapper = APIWrapper ( token_file_path = "dummy_file_path" );
@@ -17,7 +17,7 @@ class APIWrapper__return_response_errorTest ( unittest.TestCase ):
         msg_expected = "Dummy ERROR";
         """Status code expected"""
         status_code_expected = 503;
-        response_error = api_wrapper._APIWrapper__return_response_error ( status_code = status_code_expected,
+        response_error = api_wrapper._APIWrapper__build_response_object ( status_code = status_code_expected,
                                                                           msg = msg_expected );
         self.assertEqual ( response_error.reason, msg_expected );
         self.assertEqual ( response_error.status_code, status_code_expected );
@@ -29,7 +29,7 @@ class APIWrapper__return_response_errorTest ( unittest.TestCase ):
         msg_expected = None;
         """Status code expected"""
         status_code_expected = 501;
-        response_error = api_wrapper._APIWrapper__return_response_error ( status_code = status_code_expected );
+        response_error = api_wrapper._APIWrapper__build_response_object ( status_code = status_code_expected );
         self.assertEqual ( response_error.reason, msg_expected );
         self.assertEqual ( response_error.status_code, status_code_expected );
 

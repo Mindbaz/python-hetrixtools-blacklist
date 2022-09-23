@@ -54,10 +54,20 @@ class APIWrapper ( ):
 
     @property
     def token ( self ) -> str:
+        """Token getter
+
+        Returns:
+            str: __token attribute
+        """
         return self.__token;
 
     @property
     def endpoint_url ( self ) -> str:
+        """Endpoint_url getter
+
+        Returns:
+            str: __endpoint_url attribute
+        """
         return self.__endpoint_url;
 
     def get_list_blacklist_monitor ( self, page_number: int = 0, result_per_page: int = 1024 ) -> requests.Response:
@@ -164,7 +174,7 @@ class APIWrapper ( ):
             return response;
         except ( requests.ConnectTimeout, requests.ConnectionError ) as e:
             print ( f'An error occured while calling get url {url}, reason: {e}' );
-            return self.__return_response_error ( status_code = 503, msg = e );
+            return self.__build_response_object ( status_code = 503, msg = e );
 
     def post ( self, url: str, data: dict = None ) -> requests.Response:
         """Calls an API REST route: POST
@@ -181,9 +191,18 @@ class APIWrapper ( ):
             return response;
         except (requests.ConnectTimeout, requests.ConnectionError) as e:
             print ( f'An error occured while calling get url {url}, reason: {e}' );
-            return self.__return_response_error ( status_code = 503, msg = e );
+            return self.__build_response_object ( status_code = 503, msg = e );
 
-    def __return_response_error ( self, status_code: int, msg: Optional [ str ] = None ) -> requests.Response:
+    def __build_response_object ( self, status_code: int, msg: Optional [ str ] = None ) -> requests.Response:
+        """Create a request.Response with the given status_code and msg
+        
+        Args:
+            status_code: status_code associated to the Response
+            msg: msg associated to the Response
+
+        Returns:
+            requests.Response: error response built with given status_code and msg
+        """
         error_response = requests.Response ();
         error_response.status_code = int (status_code);
         error_response.reason = msg;
