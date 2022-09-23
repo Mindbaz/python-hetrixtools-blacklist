@@ -18,8 +18,10 @@
 """"""
 
 import unittest;
+from unittest.mock import patch, mock_open;
 
 from hetrixtools_blacklist_api.utils import read_file;
+
 
 class read_fileTest ( unittest.TestCase ):
     def test_file_not_exists ( self ):
@@ -31,26 +33,25 @@ class read_fileTest ( unittest.TestCase ):
         self.assertEqual ( file_content, "" );
 
     def test_empty_open_mode ( self ):
-        file_content = read_file ( file_path = __file__, open_mode = "" );
+        file_content = read_file ( file_path = "filename_that_do_not_exists", open_mode = "" );
         self.assertEqual ( file_content, "" );
 
     def test_empty_encoding ( self ):
-        file_content = read_file ( file_path = __file__, encoding = "" );
+        file_content = read_file ( file_path = "filename_that_do_not_exists", encoding = "" );
         self.assertEqual ( file_content, "" );
 
     def test_empty_verbose ( self ):
-        with open ( __file__, 'r' ) as f:
-            current_content = f.read ();
-
-        file_content = read_file ( file_path = __file__, verbose = "" );
-        self.assertEqual ( file_content, current_content );
+        str_expected = "dummy test\ndummy 2\r\n\tdummy 3";
+        with patch ( "builtins.open", mock_open ( read_data = str_expected ) ):
+            file_content = read_file ( file_path = "filename_that_do_not_exists", verbose = "" );
+        self.assertEqual ( file_content, str_expected );
 
     def test_correct_file ( self ):
-        with open ( __file__, 'r' ) as f:
-            current_content = f.read ();
+        str_expected = "dummy test\ndummy 2\r\n\tdummy 3";
+        with patch ( "builtins.open", mock_open ( read_data = str_expected ) ) as mock_file:
+            file_content = read_file ( file_path = "filename_that_do_not_exists" );
+        self.assertEqual ( file_content, str_expected );
 
-        file_content = read_file ( file_path = __file__ );
-        self.assertEqual ( file_content, current_content );
 
 if __name__ == '__main__':
     unittest.main ();

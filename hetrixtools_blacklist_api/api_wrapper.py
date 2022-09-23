@@ -17,9 +17,10 @@
 
 """This module offer a wrapper for some HetrixTools API calls (blacklist monitoring part only)"""
 
-import requests
+import requests;
+from typing import Optional;
 
-from hetrixtools_blacklist_api.utils import read_file
+from hetrixtools_blacklist_api.utils import read_file;
 
 class APIWrapper ( ):
     """Wrapper for HetrixTools API calls
@@ -50,6 +51,14 @@ class APIWrapper ( ):
             self.__endpoint_url: str = "https://relay.hetrixtools.com/api/";
         """Verbose mode"""
         self.verbose: bool = bool ( verbose );
+
+    @property
+    def token ( self ) -> str:
+        return self.__token;
+
+    @property
+    def endpoint_url ( self ) -> str:
+        return self.__endpoint_url;
 
     def get_list_blacklist_monitor ( self, page_number: int = 0, result_per_page: int = 1024 ) -> requests.Response:
         """Retrieve list of blacklist monitor from HetrixTools API
@@ -100,7 +109,7 @@ class APIWrapper ( ):
         #TODO {'status': 'SUCCESS', 'message': 'monitor has been edited'}
         route = f"v2/{self.__token}/blacklist/edit/";
         data_object = {
-            "target": target,
+            "target": str ( target ),
             "label": str ( label ),
             "contact": str ( contact )
         };
@@ -140,28 +149,42 @@ class APIWrapper ( ):
         route = f"v1/{self.__token}/contacts/";
         return self.get ( url = self.__endpoint_url + route );
 
-    def get ( self, url: str, parameters: dict = None ) -> requests.Response:
+    def get ( self, url: str, params: dict = None ) -> requests.Response:
         """Calls an API REST route: GET
-
+-
         Args:
             url: url to call
-            parameters: parameters for this call
-
+            params: params for this call
+-
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        response = requests.get ( url = url, params = parameters );
-        return response;
+        try:
+            response = requests.get ( url = url, params = params );
+            return response;
+        except ( requests.ConnectTimeout, requests.ConnectionError ) as e:
+            print ( f'An error occured while calling get url {url}, reason: {e}' );
+            return self.__return_response_error ( status_code = 503, msg = e );
 
     def post ( self, url: str, data: dict = None ) -> requests.Response:
         """Calls an API REST route: POST
-
+-
         Args:
             url: url to call
             data: data for this call
-
+-
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        response = requests.post ( url = url, data = data );
-        return response;
+        try:
+            response = requests.post ( url = url, data = data );
+            return response;
+        except (requests.ConnectTimeout, requests.ConnectionError) as e:
+            print ( f'An error occured while calling get url {url}, reason: {e}' );
+            return self.__return_response_error ( status_code = 503, msg = e );
+
+    def __return_response_error ( self, status_code: int, msg: Optional [ str ] = None ) -> requests.Response:
+        error_response = requests.Response ();
+        error_response.status_code = int (status_code);
+        error_response.reason = msg;
+        return error_response;
