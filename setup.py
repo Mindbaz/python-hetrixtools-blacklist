@@ -25,7 +25,7 @@ from hetrixtools_blacklist_api import __version__;
 setup (
     name = 'hetrixtools-blacklist',
     version = __version__,
-    description = 'Downloads and flattends datas from HetrixTools (Blacklist monitoring)',
+    description = 'Downloads and flattends datas from HetrixTools API (Blacklist monitoring)',
     long_description = long_description,
     long_description_content_type = 'text/markdown',
     url = 'https://github.com/Mindbaz/python-hetrixtools-blacklist',
