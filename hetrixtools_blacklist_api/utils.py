@@ -17,7 +17,7 @@
 
 """This module contains some utils functions"""
 
-import os
+import requests;
 
 
 def read_file ( file_path: str, open_mode: str = "r", encoding: str = "utf-8", verbose: bool = False ) -> str:
@@ -38,3 +38,26 @@ def read_file ( file_path: str, open_mode: str = "r", encoding: str = "utf-8", v
     except ( LookupError, ValueError, FileNotFoundError, PermissionError ) as e:
         print ( f"Exception catched while reading file {file_path}: {e}" );
         return "";
+
+def is_success_hetrixtools_API_call_response ( response: requests.Response ) -> bool:
+    """Check the given response object and returns
+
+    Args:
+        response: the response object to check
+
+    Returns:
+        bool: True when the API returned a success (in terms of HetrixTools API) response
+    """
+    if not response.ok:
+        return False;
+    json_content = response.json ();
+    ## For some response, the json returned on success is a list
+    ## TODO real check (but it depends of each route response)
+    if isinstance ( json_content, list ):
+        pass
+    elif isinstance ( json_content, dict ):
+        if "status" not in json_content.keys ():
+            return False;
+        elif json_content.get ( "status" ) != "SUCCESS":
+            return False;
+    return True;

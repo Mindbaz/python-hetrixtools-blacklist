@@ -22,6 +22,7 @@ from typing import List
 from hetrixtools_blacklist_api.models.responses import ResponseBlacklistMonitor
 from hetrixtools_blacklist_api.api_wrapper import APIWrapper
 from hetrixtools_blacklist_api.models.hetrixtools_api_responses import APIResponseBlacklistMonitor
+from hetrixtools_blacklist_api.utils import is_success_hetrixtools_API_call_response;
 
 
 class HetrixTools ():
@@ -42,22 +43,6 @@ class HetrixTools ():
         """API instance"""
         self.__api = APIWrapper ( token_file_path = token_file_path, use_relay_endpoint = use_relay_endpoint, verbose = verbose );
 
-        #TODO delete dummy test
-        # target = "1.2.3.4"
-        # label = "test"
-        # contact = "40c093754bf26f461883f9bd918ff52b"
-        # add_response = self.__api.add_blacklist_monitor ( target = target, label = label, contact = contact );
-        # if add_response.ok:
-        #     print ( add_response.json () )
-        #
-        # edit_response = self.__api.edit_blacklist_monitor( target = target, label = "test-edited", contact = contact )
-        # if edit_response.ok:
-        #     print (edit_response.json())
-        #
-        # remove_response = self.__api.delete_blacklist_monitor( target = target )
-        # if remove_response.ok:
-        #     print (remove_response.json())
-
     def get_list_blacklist_monitor ( self ) -> List [ ResponseBlacklistMonitor ]:
         """Get the whole list of blacklist monitor managed by HetrixTools
 
@@ -70,14 +55,26 @@ class HetrixTools ():
         total_list_blacklist_monitor = [ ];
         ## Get first page list of blacklist monitor
         request_response = self.__api.get_list_blacklist_monitor ( page_number = 0, result_per_page = 1024 );
-        if request_response.ok:
-            ## Build object from raw dict response
-            response_object = APIResponseBlacklistMonitor ( request_response.status_code, request_response.json () )
+        if is_success_hetrixtools_API_call_response ( request_response ):
+            try:
+                ## Build object from raw dict response
+                response_object = APIResponseBlacklistMonitor ( request_response.status_code, request_response.json () )
+            except KeyError as e:
+                print ( f"Unexpected response received, cannot parse it. Error: {e}" );
+                return total_list_blacklist_monitor;
             ## Add object to total list
             total_list_blacklist_monitor.extend ( response_object.list_blacklist_monitor );
             ## loop until there is another page to query
-            while response_object.next_page_call_url is not None and response_object.ok:
+            while response_object.next_page_call_url is not None:
                 request_response = self.__api.get ( response_object.next_page_call_url );
-                response_object = APIResponseBlacklistMonitor ( request_response.status_code, request_response.json () )
-                total_list_blacklist_monitor.extend ( response_object.list_blacklist_monitor );
+                if is_success_hetrixtools_API_call_response ( request_response ):
+                    try:
+                        response_object = APIResponseBlacklistMonitor ( request_response.status_code, request_response.json () )
+                    except KeyError as e:
+                        print ( f"Unexpected response received, cannot parse it. Error: {e}" );
+                        return total_list_blacklist_monitor;
+                    total_list_blacklist_monitor.extend ( response_object.list_blacklist_monitor );
+                else:
+                    print ( f"An error occurred while retrieving the whole blacklist_list." );
+                    break;
         return total_list_blacklist_monitor
