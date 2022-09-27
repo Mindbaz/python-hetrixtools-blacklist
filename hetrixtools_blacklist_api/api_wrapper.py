@@ -95,7 +95,6 @@ class APIWrapper ( ):
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        #TODO {'status': 'SUCCESS', 'message': 'monitor has been added', 'monitor_id': 'aaebae66de1c2921b21471d384eeba0e', 'report_id': '6805d5c042f36d81cf9a1f55df7c120e'}
         route = f"v2/{self.__token}/blacklist/add/"
         data_object = {
             "target": str ( target ),
@@ -116,7 +115,6 @@ class APIWrapper ( ):
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        #TODO {'status': 'SUCCESS', 'message': 'monitor has been edited'}
         route = f"v2/{self.__token}/blacklist/edit/";
         data_object = {
             "target": str ( target ),
@@ -134,7 +132,6 @@ class APIWrapper ( ):
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        #TODO {'status': 'SUCCESS', 'message': 'monitor has been deleted'}
         route = f"v2/{self.__token}/blacklist/delete/";
         data_object = {
             "target": target
