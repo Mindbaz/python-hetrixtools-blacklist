@@ -154,8 +154,6 @@ class ResponseBlacklistMonitor ():
             for index, item in enumerate ( self.list_rbl_entry ):
                 if ( item != other.list_rbl_entry [ index ] ):
                     return False;
-                else:
-                    continue;
             return self.id == other.id \
                    and self.label == other.label \
                    and self.target == other.target \

@@ -9,7 +9,7 @@ from unittest.mock import Mock;
 from hetrixtools_blacklist_api.models.responses import ResponseBlacklistMonitor, ResponseRBLEntry;
 
 
-class ResponseBlacklistMonitor__constructorTest ( unittest.TestCase ):
+class ResponseBlacklistMonitor__str__Test ( unittest.TestCase ):
     def setUp ( self ) -> None:
         ## Create parameters passed
         self.dummy_param_simple = {
@@ -43,6 +43,18 @@ class ResponseBlacklistMonitor__constructorTest ( unittest.TestCase ):
         self.expected_object_simple.list_rbl_entry = [];
         self.expected_object_simple.report_link = self.dummy_param_simple.get ( 'Links' ).get ( 'Report_Link' );
 
+        self.expected_object_simple_str = f"\nadd_date = {self.expected_object_simple.add_date}\n" \
+                                      + f"blacklisted_count = {self.expected_object_simple.blacklisted_count}\n" \
+                                      + f"contact_list_id = {self.expected_object_simple.contact_list_id}\n" \
+                                      + f"id = {self.expected_object_simple.id}\n" \
+                                      + f"label = {self.expected_object_simple.label}\n" \
+                                      + f"last_check = {self.expected_object_simple.last_check}\n" \
+                                      + f"list_rbl_entry = []\n" \
+                                      + f"report_link = {self.expected_object_simple.report_link}\n" \
+                                      + f"status = {self.expected_object_simple.status}\n" \
+                                      + f"target = {self.expected_object_simple.target}\n" \
+                                      + f"type = {self.expected_object_simple.type}\n\n";
+
         ## Create parameters passed
         self.dummy_param_blacklisted_on = {
             'ID': 1,
@@ -53,7 +65,7 @@ class ResponseBlacklistMonitor__constructorTest ( unittest.TestCase ):
             'Status': "Active",
             'Label': "Dummy label",
             'Contact_List_ID': "00000000000000000000000000000000",
-            'Blacklisted_Count': "1",
+            'Blacklisted_Count': "2",
             'Blacklisted_On': [
                 {
                     "RBL": "multi.surbl.org",
@@ -87,13 +99,33 @@ class ResponseBlacklistMonitor__constructorTest ( unittest.TestCase ):
         ];
         self.expected_object_blacklisted_on.report_link = self.dummy_param_blacklisted_on.get ( 'Links' ).get ( 'Report_Link' );
 
-    def test_constructor_success ( self ):
-        response_rbl_entry = ResponseBlacklistMonitor ( self.dummy_param_simple );
-        self.assertEqual ( self.expected_object_simple, response_rbl_entry );
+        self.expected_object_blacklisted_on_str = f"\nadd_date = {self.expected_object_blacklisted_on.add_date}\n" \
+                                      + f"blacklisted_count = {self.expected_object_blacklisted_on.blacklisted_count}\n" \
+                                      + f"contact_list_id = {self.expected_object_blacklisted_on.contact_list_id}\n" \
+                                      + f"id = {self.expected_object_blacklisted_on.id}\n" \
+                                      + f"label = {self.expected_object_blacklisted_on.label}\n" \
+                                      + f"last_check = {self.expected_object_blacklisted_on.last_check}\n" \
+                                      + f"list_rbl_entry =\n" \
+                                      + f"\t[\n" \
+                                      + f"\tdelist_url = {self.expected_object_blacklisted_on.list_rbl_entry [ 0 ].delist_url}\n" \
+                                      + f"\trbl_source = {self.expected_object_blacklisted_on.list_rbl_entry [ 0 ].rbl_source}\n" \
+                                      + f"\t]\n" \
+                                      + f"\t[\n" \
+                                      + f"\tdelist_url = {self.expected_object_blacklisted_on.list_rbl_entry [ 1 ].delist_url}\n" \
+                                      + f"\trbl_source = {self.expected_object_blacklisted_on.list_rbl_entry [ 1 ].rbl_source}\n" \
+                                      + f"\t]\n" \
+                                      + f"report_link = {self.expected_object_blacklisted_on.report_link}\n" \
+                                      + f"status = {self.expected_object_blacklisted_on.status}\n" \
+                                      + f"target = {self.expected_object_blacklisted_on.target}\n" \
+                                      + f"type = {self.expected_object_blacklisted_on.type}\n\n";
 
-    def test_constructor_blacklist_on ( self ):
+    def test_str ( self ):
+        response_rbl_entry = ResponseBlacklistMonitor ( self.dummy_param_simple );
+        self.assertEqual ( self.expected_object_simple_str, str ( response_rbl_entry ) );
+
+    def test_str_with_rbl_entries ( self ):
         response_rbl_entry = ResponseBlacklistMonitor ( self.dummy_param_blacklisted_on );
-        self.assertEqual ( self.expected_object_blacklisted_on, response_rbl_entry );
+        self.assertEqual ( self.expected_object_blacklisted_on_str, str ( response_rbl_entry ) );
 
 if __name__ == '__main__':
     unittest.main ();
