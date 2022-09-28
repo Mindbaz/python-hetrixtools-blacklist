@@ -29,7 +29,7 @@ file or in database.
 
 ```sh
 python entry_points_hetrixtools_blacklist_api/hetrixtools_get_list_blacklist_monitor.py -h
-> usage: hetrix_tools_get_list_blacklist_monitor [-h] [--token_file TOKEN_FILE] [--use_relay_endpoint] [--verbose] [--version]
+> usage: hetrixtools_get_list_blacklist_monitor [-h] [--token_file TOKEN_FILE] [--use_relay_endpoint] [--verbose] [--version]
 ```
 
 # Support version
