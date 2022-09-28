@@ -23,7 +23,7 @@ file or in database.
 ### ResponseRBLEntry
 
 * rbl_source : `str`
-* delist_url : `ste`
+* delist_url : `str`
 
 ## How to use it
 
