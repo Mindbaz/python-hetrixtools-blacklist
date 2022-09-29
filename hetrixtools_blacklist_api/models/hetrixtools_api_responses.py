@@ -41,17 +41,11 @@ class APIResponseBlacklistMonitor ():
             status_code: status code returned by the API call
             raw_json: object returned by the API
         """
-        """"""
         self.status_code: int = int ( status_code );
-        """"""
         self.ok: bool = True if self.status_code < 400 else False;
-        """"""
         self.list_blacklist_monitor: List [ ResponseBlacklistMonitor ] = self.__parse_list_blacklist_monitor ( raw_json [ 0 ] )
-        """"""
         self.total_records: int = raw_json [ 1 ] [ 'Meta' ].get ( 'Total_Records', 0 );
-        """"""
         self.previous_page_call_url: str = raw_json [ 1 ] [ 'Links' ] [ 'Pages' ].get ( 'Prev', None );
-        """"""
         self.next_page_call_url: str = raw_json [ 1 ] [ 'Links' ] [ 'Pages' ].get ( 'Next', None );
 
     def __parse_list_blacklist_monitor ( self, raw_json: dict ) -> List [ ResponseBlacklistMonitor ]:
