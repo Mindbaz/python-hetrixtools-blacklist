@@ -34,4 +34,4 @@ python entry_points_hetrixtools_blacklist_api/hetrixtools_get_list_blacklist_mon
 
 # Support version
 
-Python : `>=3.6`
+Python : `>=3.7`
