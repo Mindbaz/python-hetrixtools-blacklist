@@ -3,10 +3,11 @@
 
 
 import unittest;
-from unittest.mock import patch, Mock;
+from unittest.mock import patch, Mock, call;
 
 import requests
 
+from hetrixtools_blacklist_api import utils
 from hetrixtools_blacklist_api.hetrixtools import HetrixTools;
 from hetrixtools_blacklist_api.models.responses import ResponseBlacklistMonitor, ResponseRBLEntry;
 from hetrixtools_blacklist_api.models.hetrixtools_api_responses import APIResponseBlacklistMonitor;
@@ -153,46 +154,64 @@ class HetrixTools__get_list_blacklist_monitorTest ( unittest.TestCase ):
 
     def test_get_list_blacklist_monitor_default_params ( self ) -> None:
         instance = HetrixTools ( token_file_path = "dummy_file_path" );
-        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get_list_blacklist_monitor" ) as api_wrapper_get_list_blacklist_monitor:
-            ## Assign method return value to Mock object
-            api_wrapper_get_list_blacklist_monitor.return_value = self.expected_object_simple;
+        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get_list_blacklist_monitor", return_value = self.expected_object_simple ) as api_wrapper_get_list_blacklist_monitor:
+            with patch ( "hetrixtools_blacklist_api.hetrixtools.is_success_hetrixtools_API_call_response", side_effect = utils.is_success_hetrixtools_API_call_response ) as is_success_hetrixtools_API_call_response:
+                ## Create results object wanted
+                list_object_expected = [ ];
+                tmp_api_reponse = APIResponseBlacklistMonitor ( self.expected_object_simple.status_code, self.expected_object_simple.json () );
+                list_object_expected.extend ( tmp_api_reponse.list_blacklist_monitor );
 
-            ## Create results object wanted
-            list_object_expected = [ ];
-            tmp_api_reponse = APIResponseBlacklistMonitor ( self.expected_object_simple.status_code, self.expected_object_simple.json () );
-            list_object_expected.extend ( tmp_api_reponse.list_blacklist_monitor );
+                ## Call the function to test
+                list_blacklist_monitor = instance.get_list_blacklist_monitor ();
 
-            ## Call the function to test
-            list_blacklist_monitor = instance.get_list_blacklist_monitor ();
-
-            ## Assert equal function
-            self.assertListEqual ( list_blacklist_monitor, list_object_expected );
+                api_wrapper_get_list_blacklist_monitor.assert_called_once_with (
+                    page_number = 0,
+                    result_per_page = 1024
+                );
+                is_success_hetrixtools_API_call_response.assert_called_once_with (
+                    response = self.expected_object_simple
+                )
+                ## Assert equal function
+                self.assertListEqual ( list_blacklist_monitor, list_object_expected );
 
     def test_not_success_API_call_response ( self ):
         instance = HetrixTools ( token_file_path = "dummy_file_path" );
         list_object_expected = [];
-        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get_list_blacklist_monitor" ) as api_wrapper_get_list_blacklist_monitor:
-            ## Assign method return value to Mock object
-            api_wrapper_get_list_blacklist_monitor.return_value = self.expected_object_not_success;
+        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get_list_blacklist_monitor",
+                     return_value = self.expected_object_not_success ) as api_wrapper_get_list_blacklist_monitor:
+            with patch ( "hetrixtools_blacklist_api.hetrixtools.is_success_hetrixtools_API_call_response",
+                         side_effect = utils.is_success_hetrixtools_API_call_response ) as is_success_hetrixtools_API_call_response:
+                ## Call the function to test
+                list_blacklist_monitor = instance.get_list_blacklist_monitor ();
 
-            ## Call the function to test
-            list_blacklist_monitor = instance.get_list_blacklist_monitor ();
-
-            ## Assert equal function
-            self.assertListEqual ( list_blacklist_monitor, list_object_expected );
+                api_wrapper_get_list_blacklist_monitor.assert_called_once_with (
+                    page_number = 0,
+                    result_per_page = 1024
+                );
+                is_success_hetrixtools_API_call_response.assert_called_once_with (
+                    response = self.expected_object_not_success
+                )
+                ## Assert equal function
+                self.assertListEqual ( list_blacklist_monitor, list_object_expected );
 
     def test_not_success_API_call_malformed_response ( self ):
         instance = HetrixTools ( token_file_path = "dummy_file_path" );
         list_object_expected = [];
-        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get_list_blacklist_monitor" ) as api_wrapper_get_list_blacklist_monitor:
-            ## Assign method return value to Mock object
-            api_wrapper_get_list_blacklist_monitor.return_value = self.expected_object_success_malformed;
+        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get_list_blacklist_monitor",
+                     return_value = self.expected_object_success_malformed ) as api_wrapper_get_list_blacklist_monitor:
+            with patch ( "hetrixtools_blacklist_api.hetrixtools.is_success_hetrixtools_API_call_response", side_effect = utils.is_success_hetrixtools_API_call_response ) as is_success_hetrixtools_API_call_response:
+                ## Call the function to test
+                list_blacklist_monitor = instance.get_list_blacklist_monitor ();
 
-            ## Call the function to test
-            list_blacklist_monitor = instance.get_list_blacklist_monitor ();
-
-            ## Assert equal function
-            self.assertListEqual ( list_blacklist_monitor, list_object_expected );
+                api_wrapper_get_list_blacklist_monitor.assert_called_once_with (
+                    page_number = 0,
+                    result_per_page = 1024
+                );
+                is_success_hetrixtools_API_call_response.assert_called_once_with (
+                    response = self.expected_object_success_malformed
+                )
+                ## Assert equal function
+                self.assertListEqual ( list_blacklist_monitor, list_object_expected );
 
     def test_success_API_call_with_next_page ( self ):
         instance = HetrixTools ( token_file_path = "dummy_file_path" );
@@ -200,45 +219,78 @@ class HetrixTools__get_list_blacklist_monitorTest ( unittest.TestCase ):
             ResponseBlacklistMonitor ( self.expected_object_success_with_next_page.json () [ 0 ] [ 0 ] ),
             ResponseBlacklistMonitor ( self.expected_object_success_without_next_page.json () [ 0 ] [ 0 ] ),
         ];
-        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get" ) as api_wrapper_get:
-            api_wrapper_get.side_effect = [ self.expected_object_success_with_next_page,
-                                            self.expected_object_success_without_next_page ];
+        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get",
+                     side_effect = [ self.expected_object_success_with_next_page,
+                                     self.expected_object_success_without_next_page ]) as api_wrapper_get:
+            with patch ( "hetrixtools_blacklist_api.hetrixtools.is_success_hetrixtools_API_call_response",
+                         side_effect = utils.is_success_hetrixtools_API_call_response ) as is_success_hetrixtools_API_call_response:
+                ## Call the function to test
+                list_blacklist_monitor = instance.get_list_blacklist_monitor ();
 
-            ## Call the function to test
-            list_blacklist_monitor = instance.get_list_blacklist_monitor ();
-
-            ## Assert equal function
-            self.assertListEqual ( list_blacklist_monitor, list_object_expected );
+                api_wrapper_get.assert_has_calls ( [
+                    call ( url = "https://api.hetrixtools.com/v2//blacklist/monitors/0/1024/" ),
+                    call ( url = "dummy_page_next" )
+                ] )
+                is_success_hetrixtools_API_call_response.assert_has_calls (
+                    [
+                        call ( response = self.expected_object_success_with_next_page ),
+                        call ( response = self.expected_object_success_without_next_page )
+                    ]
+                )
+                ## Assert equal function
+                self.assertListEqual ( list_blacklist_monitor, list_object_expected );
 
     def test_success_API_call_with_next_page_malformed ( self ):
         instance = HetrixTools ( token_file_path = "dummy_file_path" );
         list_object_expected = [
             ResponseBlacklistMonitor ( self.expected_object_success_with_next_page.json () [ 0 ] [ 0 ] )
         ];
-        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get" ) as api_wrapper_get:
-            api_wrapper_get.side_effect = [ self.expected_object_success_with_next_page,
-                                            self.expected_object_success_malformed ];
+        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get",
+                     side_effect = [ self.expected_object_success_with_next_page,
+                                     self.expected_object_success_malformed ] ) as api_wrapper_get:
+            with patch ( "hetrixtools_blacklist_api.hetrixtools.is_success_hetrixtools_API_call_response",
+                         side_effect = utils.is_success_hetrixtools_API_call_response ) as is_success_hetrixtools_API_call_response:
+                ## Call the function to test
+                list_blacklist_monitor = instance.get_list_blacklist_monitor ();
 
-            ## Call the function to test
-            list_blacklist_monitor = instance.get_list_blacklist_monitor ();
+                api_wrapper_get.assert_has_calls ( [
+                    call ( url = "https://api.hetrixtools.com/v2//blacklist/monitors/0/1024/"),
+                    call ( url = "dummy_page_next" ) ] )
 
-            ## Assert equal function
-            self.assertListEqual ( list_blacklist_monitor, list_object_expected );
+                is_success_hetrixtools_API_call_response.assert_has_calls (
+                    [
+                        call ( response = self.expected_object_success_with_next_page ),
+                        call ( response = self.expected_object_success_malformed )
+                    ]
+                )
+                ## Assert equal function
+                self.assertListEqual ( list_blacklist_monitor, list_object_expected );
 
     def test_success_API_call_with_next_page_error ( self ):
         instance = HetrixTools ( token_file_path = "dummy_file_path" );
         list_object_expected = [
             ResponseBlacklistMonitor ( self.expected_object_success_with_next_page.json () [ 0 ] [ 0 ] )
         ];
-        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get" ) as api_wrapper_get:
-            api_wrapper_get.side_effect = [ self.expected_object_success_with_next_page,
-                                            self.expected_object_not_success ];
+        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get",
+                     side_effect = [ self.expected_object_success_with_next_page,
+                                     self.expected_object_not_success ] ) as api_wrapper_get:
+            with patch ( "hetrixtools_blacklist_api.hetrixtools.is_success_hetrixtools_API_call_response",
+                         side_effect = utils.is_success_hetrixtools_API_call_response ) as is_success_hetrixtools_API_call_response:
+                ## Call the function to test
+                list_blacklist_monitor = instance.get_list_blacklist_monitor ();
 
-            ## Call the function to test
-            list_blacklist_monitor = instance.get_list_blacklist_monitor ();
+                api_wrapper_get.assert_has_calls ( [
+                    call ( url = "https://api.hetrixtools.com/v2//blacklist/monitors/0/1024/"),
+                    call ( url = "dummy_page_next" ) ] )
 
-            ## Assert equal function
-            self.assertListEqual ( list_blacklist_monitor, list_object_expected );
+                is_success_hetrixtools_API_call_response.assert_has_calls (
+                    [
+                        call ( response = self.expected_object_success_with_next_page ),
+                        call ( response = self.expected_object_not_success )
+                    ]
+                )
+                ## Assert equal function
+                self.assertListEqual ( list_blacklist_monitor, list_object_expected );
 
 
 if __name__ == "__main__":
