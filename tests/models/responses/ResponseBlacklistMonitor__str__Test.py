@@ -42,17 +42,17 @@ class ResponseBlacklistMonitor__str__Test ( unittest.TestCase ):
         self.expected_object_simple.list_rbl_entry = [];
         self.expected_object_simple.report_link = self.dummy_param_simple.get ( 'Links' ).get ( 'Report_Link' );
 
-        self.expected_object_simple_str = f"\nadd_date = {self.expected_object_simple.add_date}\n" \
-                                      + f"blacklisted_count = {self.expected_object_simple.blacklisted_count}\n" \
-                                      + f"contact_list_id = {self.expected_object_simple.contact_list_id}\n" \
-                                      + f"id = {self.expected_object_simple.id}\n" \
-                                      + f"label = {self.expected_object_simple.label}\n" \
-                                      + f"last_check = {self.expected_object_simple.last_check}\n" \
-                                      + f"list_rbl_entry = []\n" \
-                                      + f"report_link = {self.expected_object_simple.report_link}\n" \
-                                      + f"status = {self.expected_object_simple.status}\n" \
-                                      + f"target = {self.expected_object_simple.target}\n" \
-                                      + f"type = {self.expected_object_simple.type}\n\n";
+        self.expected_object_simple_str = "\nadd_date = {}\n".format ( self.expected_object_simple.add_date ) \
+                                      + "blacklisted_count = {}\n".format ( self.expected_object_simple.blacklisted_count ) \
+                                      + "contact_list_id = {}\n".format ( self.expected_object_simple.contact_list_id ) \
+                                      + "id = {}\n".format ( self.expected_object_simple.id ) \
+                                      + "label = {}\n".format ( self.expected_object_simple.label ) \
+                                      + "last_check = {}\n".format ( self.expected_object_simple.last_check ) \
+                                      + "list_rbl_entry = []\n" \
+                                      + "report_link = {}\n".format ( self.expected_object_simple.report_link ) \
+                                      + "status = {}\n".format ( self.expected_object_simple.status ) \
+                                      + "target = {}\n".format ( self.expected_object_simple.target ) \
+                                      + "type = {}\n\n".format ( self.expected_object_simple.type );
 
         ## Create parameters passed
         self.dummy_param_blacklisted_on = {
@@ -98,25 +98,25 @@ class ResponseBlacklistMonitor__str__Test ( unittest.TestCase ):
         ];
         self.expected_object_blacklisted_on.report_link = self.dummy_param_blacklisted_on.get ( 'Links' ).get ( 'Report_Link' );
 
-        self.expected_object_blacklisted_on_str = f"\nadd_date = {self.expected_object_blacklisted_on.add_date}\n" \
-                                      + f"blacklisted_count = {self.expected_object_blacklisted_on.blacklisted_count}\n" \
-                                      + f"contact_list_id = {self.expected_object_blacklisted_on.contact_list_id}\n" \
-                                      + f"id = {self.expected_object_blacklisted_on.id}\n" \
-                                      + f"label = {self.expected_object_blacklisted_on.label}\n" \
-                                      + f"last_check = {self.expected_object_blacklisted_on.last_check}\n" \
-                                      + f"list_rbl_entry =\n" \
-                                      + f"\t[\n" \
-                                      + f"\tdelist_url = {self.expected_object_blacklisted_on.list_rbl_entry [ 0 ].delist_url}\n" \
-                                      + f"\trbl_source = {self.expected_object_blacklisted_on.list_rbl_entry [ 0 ].rbl_source}\n" \
-                                      + f"\t]\n" \
-                                      + f"\t[\n" \
-                                      + f"\tdelist_url = {self.expected_object_blacklisted_on.list_rbl_entry [ 1 ].delist_url}\n" \
-                                      + f"\trbl_source = {self.expected_object_blacklisted_on.list_rbl_entry [ 1 ].rbl_source}\n" \
-                                      + f"\t]\n" \
-                                      + f"report_link = {self.expected_object_blacklisted_on.report_link}\n" \
-                                      + f"status = {self.expected_object_blacklisted_on.status}\n" \
-                                      + f"target = {self.expected_object_blacklisted_on.target}\n" \
-                                      + f"type = {self.expected_object_blacklisted_on.type}\n\n";
+        self.expected_object_blacklisted_on_str = "\nadd_date = {}\n".format ( self.expected_object_blacklisted_on.add_date ) \
+                                      + "blacklisted_count = {}\n".format ( self.expected_object_blacklisted_on.blacklisted_count ) \
+                                      + "contact_list_id = {}\n".format ( self.expected_object_blacklisted_on.contact_list_id ) \
+                                      + "id = {}\n".format ( self.expected_object_blacklisted_on.id ) \
+                                      + "label = {}\n".format ( self.expected_object_blacklisted_on.label ) \
+                                      + "last_check = {}\n".format ( self.expected_object_blacklisted_on.last_check ) \
+                                      + "list_rbl_entry =\n" \
+                                      + "\t[\n" \
+                                      + "\tdelist_url = {}\n".format ( self.expected_object_blacklisted_on.list_rbl_entry [ 0 ].delist_url ) \
+                                      + "\trbl_source = {}\n".format ( self.expected_object_blacklisted_on.list_rbl_entry [ 0 ].rbl_source ) \
+                                      + "\t]\n" \
+                                      + "\t[\n" \
+                                      + "\tdelist_url = {}\n".format ( self.expected_object_blacklisted_on.list_rbl_entry [ 1 ].delist_url ) \
+                                      + "\trbl_source = {}\n".format ( self.expected_object_blacklisted_on.list_rbl_entry [ 1 ].rbl_source ) \
+                                      + "\t]\n" \
+                                      + "report_link = {}\n".format ( self.expected_object_blacklisted_on.report_link ) \
+                                      + "status = {}\n".format ( self.expected_object_blacklisted_on.status ) \
+                                      + "target = {}\n".format ( self.expected_object_blacklisted_on.target ) \
+                                      + "type = {}\n\n".format ( self.expected_object_blacklisted_on.type );
 
     def test_str ( self ):
         response_rbl_entry = ResponseBlacklistMonitor ( self.dummy_param_simple );

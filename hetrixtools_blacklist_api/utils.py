@@ -20,14 +20,13 @@
 import requests;
 
 
-def read_file ( file_path: str, open_mode: str = "r", encoding: str = "utf-8", verbose: bool = False ) -> str:
+def read_file ( file_path: str, open_mode: str = "r", encoding: str = "utf-8" ) -> str:
     """Read a file and returns its content
 
     Args:
         file_path: Path to the file to read
         open_mode: String representing the open mode to use ("r" by default)
         encoding: String representing the encoding to use ("utf-8" by default)
-        verbose: Verbose mode (False by default)
 
     Returns:
         str: file content as string
@@ -36,8 +35,9 @@ def read_file ( file_path: str, open_mode: str = "r", encoding: str = "utf-8", v
         with open ( file = file_path, mode = open_mode, encoding = encoding ) as file:
             return file.read ();
     except ( LookupError, ValueError, FileNotFoundError, PermissionError ) as e:
-        print ( f"Exception catched while reading file {file_path}: {e}" );
+        print ( "Exception catched while reading file {}: {}".format ( file_path, e ) );
         return "";
+
 
 def is_success_hetrixtools_API_call_response ( response: requests.Response ) -> bool:
     """Check the given response object and returns

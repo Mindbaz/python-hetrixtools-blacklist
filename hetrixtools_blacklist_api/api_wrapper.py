@@ -22,7 +22,8 @@ from typing import Optional;
 
 from hetrixtools_blacklist_api.utils import read_file;
 
-class APIWrapper ( ):
+
+class APIWrapper ():
     """Wrapper for HetrixTools API calls
 
     Attributes:
@@ -43,7 +44,7 @@ class APIWrapper ( ):
         """Use the classic API endpoint or the relay one (in case of CloudFlare blocking your IP address)"""
         self.use_relay_endpoint: bool = bool ( use_relay_endpoint );
         """API Token"""
-        self.__token: str = read_file ( file_path = token_file_path, verbose = verbose ).strip ();
+        self.__token: str = read_file ( file_path = token_file_path ).strip ();
         """Endpoint URL to call"""
         if not self.use_relay_endpoint:
             self.__endpoint_url: str = "https://api.hetrixtools.com/";
@@ -80,7 +81,8 @@ class APIWrapper ( ):
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        route = f"v2/{self.__token}/blacklist/monitors/{int ( page_number )}/{int ( result_per_page )}/";
+        route = "v2/{}/blacklist/monitors/{}/{}/"\
+            .format ( self.__token, int ( page_number ), int ( result_per_page ) );
         response = self.get ( url = self.__endpoint_url + route );
         return response;
 
@@ -95,7 +97,7 @@ class APIWrapper ( ):
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        route = f"v2/{self.__token}/blacklist/add/"
+        route = "v2/{}/blacklist/add/".format ( self.__token );
         data_object = {
             "target": str ( target ),
             "label": str ( label ),
@@ -115,7 +117,7 @@ class APIWrapper ( ):
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        route = f"v2/{self.__token}/blacklist/edit/";
+        route = "v2/{}/blacklist/edit/".format ( self.__token );
         data_object = {
             "target": str ( target ),
             "label": str ( label ),
@@ -132,7 +134,7 @@ class APIWrapper ( ):
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        route = f"v2/{self.__token}/blacklist/delete/";
+        route = "v2/{}/blacklist/delete/".format ( self.__token );
         data_object = {
             "target": target
         };
@@ -144,7 +146,7 @@ class APIWrapper ( ):
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        route = f"v1/{self.__token}/status/";
+        route = "v1/{}/status/".format ( self.__token );
         return self.get ( url = self.__endpoint_url + route );
 
     def list_contact_lists ( self ) -> requests.Response:
@@ -153,7 +155,7 @@ class APIWrapper ( ):
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        route = f"v1/{self.__token}/contacts/";
+        route = "v1/{}/contacts/".format ( self.__token );
         return self.get ( url = self.__endpoint_url + route );
 
     def get ( self, url: str, params: dict = None ) -> requests.Response:
@@ -170,7 +172,7 @@ class APIWrapper ( ):
             response = requests.get ( url = url, params = params );
             return response;
         except ( requests.ConnectTimeout, requests.ConnectionError ) as e:
-            print ( f'An error occured while calling get url {url}, reason: {e}' );
+            print ( 'An error occured while calling get url {}, reason: {}'.format ( url, e ) );
             return self.__build_response_object ( status_code = 503, msg = e );
 
     def post ( self, url: str, data: dict = None ) -> requests.Response:
@@ -187,7 +189,7 @@ class APIWrapper ( ):
             response = requests.post ( url = url, data = data );
             return response;
         except (requests.ConnectTimeout, requests.ConnectionError) as e:
-            print ( f'An error occured while calling get url {url}, reason: {e}' );
+            print ( 'An error occured while calling get url {}, reason: {}'.format ( url, e ) );
             return self.__build_response_object ( status_code = 503, msg = e );
 
     def __build_response_object ( self, status_code: int, msg: Optional [ str ] = None ) -> requests.Response:
@@ -201,6 +203,6 @@ class APIWrapper ( ):
             requests.Response: error response built with given status_code and msg
         """
         error_response = requests.Response ();
-        error_response.status_code = int (status_code);
+        error_response.status_code = int ( status_code );
         error_response.reason = msg;
         return error_response;

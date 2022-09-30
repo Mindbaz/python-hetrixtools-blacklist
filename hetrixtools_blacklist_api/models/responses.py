@@ -45,8 +45,8 @@ class ResponseRBLEntry ():
         """
         string: str = "";
         for var_key in sorted ( vars ( self ) ):
-            string = string + f"\t{var_key} = {getattr ( self, var_key )}\n";
-        return f"{string}";
+            string = string + "\t{} = {}\n".format ( var_key, getattr ( self, var_key ) );
+        return string;
 
     def __eq__ ( self, other ) -> bool:
         """Check equality between this object and another ResponseRBLEntry object
@@ -113,13 +113,13 @@ class ResponseBlacklistMonitor ():
             current_var = getattr ( self, var_key );
             ## Check if variable is a list
             if ( isinstance ( current_var, list ) and len ( current_var ) > 0 ):
-                string = string + f"{var_key} =\n";
+                string = string + "{} =\n".format ( var_key );
                 ## Loop over list
                 for item in current_var:
-                    string = string + f"\t[\n{item.__str__()}\t]\n";
+                    string = string + "\t[\n{}\t]\n".format ( item.__str__ () );
             else:
-                string = string + f"{var_key} = {current_var}\n";
-        return f"\n{string}\n";
+                string = string + "{} = {}\n".format ( var_key, current_var );
+        return "\n{}\n".format ( string );
 
     def __parse_list_rbl_entry ( self, raw_json: dict ) -> List [ ResponseRBLEntry ]:
         """Parse object returned by HetrixTools API to convert it into a List [ ResponseRBLEntry ]

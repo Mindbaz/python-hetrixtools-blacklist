@@ -27,8 +27,8 @@ class ResponseRBLEntry__constructorTest ( unittest.TestCase ):
         self.expected_object_simple = Mock ();
         self.expected_object_simple.delist_url = self.dummy_param_simple.get ( 'Delist' );
         self.expected_object_simple.rbl_source = self.dummy_param_simple.get ( 'RBL' );
-        self.expected_object_simple_str = f"\tdelist_url = {self.expected_object_simple.delist_url}\n" \
-                                      + f"\trbl_source = {self.expected_object_simple.rbl_source}\n"
+        self.expected_object_simple_str = "\tdelist_url = {}\n".format ( self.expected_object_simple.delist_url ) \
+                                      + "\trbl_source = {}\n".format ( self.expected_object_simple.rbl_source );
 
     def test_constructor_success ( self ):
         response_rbl_entry = ResponseRBLEntry ( self.dummy_param_simple );

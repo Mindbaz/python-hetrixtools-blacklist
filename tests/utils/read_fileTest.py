@@ -39,12 +39,6 @@ class read_fileTest ( unittest.TestCase ):
         file_content = read_file ( file_path = "filename_that_do_not_exists", encoding = "" );
         self.assertEqual ( file_content, "" );
 
-    def test_empty_verbose ( self ):
-        str_expected = "dummy test\ndummy 2\r\n\tdummy 3";
-        with patch ( "builtins.open", mock_open ( read_data = str_expected ) ):
-            file_content = read_file ( file_path = "filename_that_do_not_exists", verbose = "" );
-        self.assertEqual ( file_content, str_expected );
-
     def test_correct_file ( self ):
         str_expected = "dummy test\ndummy 2\r\n\tdummy 3";
         with patch ( "builtins.open", mock_open ( read_data = str_expected ) ) as mock_file:

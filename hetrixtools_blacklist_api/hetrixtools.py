@@ -60,7 +60,7 @@ class HetrixTools ():
                 ## Build object from raw dict response
                 response_object = APIResponseBlacklistMonitor ( request_response.status_code, request_response.json () )
             except (KeyError, TypeError) as e:
-                print ( f"Unexpected response received, cannot parse it. Error: {e}" );
+                print ( "Unexpected response received, cannot parse it. Error: {}".format ( e ) );
                 return total_list_blacklist_monitor;
             ## Add object to total list
             total_list_blacklist_monitor.extend ( response_object.list_blacklist_monitor );
@@ -71,10 +71,10 @@ class HetrixTools ():
                     try:
                         response_object = APIResponseBlacklistMonitor ( request_response.status_code, request_response.json () )
                     except (KeyError, TypeError) as e:
-                        print ( f"Unexpected response received, cannot parse it. Error: {e}" );
+                        print ( "Unexpected response received, cannot parse it. Error: {}".format ( e ) );
                         return total_list_blacklist_monitor;
                     total_list_blacklist_monitor.extend ( response_object.list_blacklist_monitor );
                 else:
-                    print ( f"An error occurred while retrieving the whole blacklist_list." );
+                    print ( "An error occurred while retrieving the whole blacklist_list." );
                     break;
         return total_list_blacklist_monitor
