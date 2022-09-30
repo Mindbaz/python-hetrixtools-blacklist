@@ -30,35 +30,14 @@ class APIWrapper__api_statusTest ( unittest.TestCase ):
 
     def test_api_status_success ( self ):
         """API Instance"""
-        with patch ( "requests.get" ) as patch_request_get:
-            patch_request_get.return_value = self.expected_object_simple;
+        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get",
+                     return_value = self.expected_object_simple ) as get:
             api_wrapper = APIWrapper ( token_file_path = "dummy_file_path" );
             returned_object = api_wrapper.api_status ();
+            get.assert_called_once_with (
+                url = "https://api.hetrixtools.com/v1//status/"
+            )
         self.assertEqual ( self.expected_object_simple, returned_object );
-
-    def test_api_status_connection_error ( self ):
-        ## Simulate connection problem
-        import socket, requests;
-        def guard ( *args, **kwargs ):
-            raise requests.ConnectionError ( "Temporary failure in name resolution" );
-
-        socket.socket = guard;
-        """API Instance"""
-        api_wrapper = APIWrapper ( token_file_path = "dummy_file_path" );
-        returned_object = api_wrapper.api_status ();
-        self.assertEqual ( returned_object.status_code, 503 );
-
-    def test_api_status_connect_timeout ( self ):
-        ## Simulate connection problem
-        import socket, requests;
-        def guard ( *args, **kwargs ):
-            raise requests.ConnectTimeout ( "Temporary failure in name resolution" );
-
-        socket.socket = guard;
-        """API Instance"""
-        api_wrapper = APIWrapper ( token_file_path = "dummy_file_path" );
-        returned_object = api_wrapper.api_status ();
-        self.assertEqual ( returned_object.status_code, 503 );
 
 
 if __name__ == "__main__":

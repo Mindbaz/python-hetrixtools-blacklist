@@ -26,41 +26,17 @@ class APIWrapper__delete_blacklist_monitorTest ( unittest.TestCase ):
 
     def test_delete_blacklist_monitor_success ( self ):
         """API Instance"""
-        with patch ( "requests.post" ) as patch_request_post:
-            patch_request_post.return_value = self.expected_object_simple;
+        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.post",
+                     return_value = self.expected_object_simple ) as post:
             api_wrapper = APIWrapper ( token_file_path = "dummy_file_path" );
             returned_object = api_wrapper.delete_blacklist_monitor (
-                *self.dummy_param_simple
+                **self.dummy_param_simple
             );
+            post.assert_called_once_with (
+                url = "https://api.hetrixtools.com/v2//blacklist/delete/",
+                data = self.dummy_param_simple
+            )
         self.assertEqual ( self.expected_object_simple, returned_object );
-
-    def test_delete_blacklist_monitor_connection_error ( self ):
-        ## Simulate connection problem
-        import socket, requests;
-        def guard ( *args, **kwargs ):
-            raise requests.ConnectionError ( "Temporary failure in name resolution" );
-
-        socket.socket = guard;
-        """API Instance"""
-        api_wrapper = APIWrapper ( token_file_path = "dummy_file_path" );
-        returned_object = api_wrapper.delete_blacklist_monitor (
-            *self.dummy_param_simple
-        );
-        self.assertEqual ( returned_object.status_code, 503 );
-
-    def test_delete_blacklist_monitor_connect_timeout ( self ):
-        ## Simulate connection problem
-        import socket, requests;
-        def guard ( *args, **kwargs ):
-            raise requests.ConnectTimeout ( "Temporary failure in name resolution" );
-
-        socket.socket = guard;
-        """API Instance"""
-        api_wrapper = APIWrapper ( token_file_path = "dummy_file_path" );
-        returned_object = api_wrapper.delete_blacklist_monitor (
-            *self.dummy_param_simple
-        );
-        self.assertEqual ( returned_object.status_code, 503 );
 
 
 if __name__ == "__main__":
