@@ -34,8 +34,8 @@ class ResponseRBLEntry ():
         Args:
             raw_json: object returned by HetrixTools API
         """
-        self.rbl_source: str = raw_json [ 'RBL' ];
-        self.delist_url: str = raw_json.get ( 'Delist' );
+        self.rbl_source: str = raw_json [ "RBL" ];
+        self.delist_url: str = raw_json.get ( "Delist" );
 
     def __str__ ( self ) -> str:
         """Create a string representation of this instance
@@ -73,7 +73,7 @@ class ResponseBlacklistMonitor ():
     Attributes:
         id: unique ID
         type: one of the following types 'IPv4'|'IPv6'|'Domain'
-        target: IP or Domain address monitored (depending of the type) 
+        target: IP or Domain address monitored (depends of the type)
         add_date: date at which this blacklist monitor was created
         last_check: last date at which this target was checked for RBL
         status: one of the following status 'Active'|'In Queue'|'Processing'

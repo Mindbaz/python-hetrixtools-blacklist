@@ -33,5 +33,5 @@ class APIWrapper__build_response_objectTest ( unittest.TestCase ):
         self.assertEqual ( response_error.status_code, status_code_expected );
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main ();

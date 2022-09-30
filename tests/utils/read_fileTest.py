@@ -46,5 +46,5 @@ class read_fileTest ( unittest.TestCase ):
         self.assertEqual ( file_content, str_expected );
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main ();

@@ -25,13 +25,13 @@ from hetrixtools_blacklist_api import __version__;
 
 
 def parse_arguments () -> argparse.Namespace:
-    parser = argparse.ArgumentParser ( prog = 'hetrix_tools_get_list_blacklist_monitor' );
+    parser = argparse.ArgumentParser ( prog = "hetrix_tools_get_list_blacklist_monitor" );
 
     ## All arguments
-    parser.add_argument ( '--token_file', type = str, help = 'HetrixTools API token file' );
-    parser.add_argument ( '--use_relay_endpoint', action = 'store_true', help = 'Verbose mode' );
-    parser.add_argument ( '--verbose', action = 'store_true', help = 'Verbose mode' );
-    parser.add_argument ( '--version', action = 'store_true', help = 'Display version' );
+    parser.add_argument ( "--token_file", type = str, help = "HetrixTools API token file" );
+    parser.add_argument ( "--use_relay_endpoint", action = "store_true", help = "Verbose mode" );
+    parser.add_argument ( "--verbose", action = "store_true", help = "Verbose mode" );
+    parser.add_argument ( "--version", action = "store_true", help = "Display version" );
     args = parser.parse_args ();
     return args;
 
@@ -49,11 +49,11 @@ def print_verbose ( args: argparse.Namespace ) -> None:
     Args:
         args: argparse namespace
     """
-    print ( 'v v v v v v v v v v v v v v v v v v v v v' );
-    print ( 'Arguments list : ' );
+    print ( "v v v v v v v v v v v v v v v v v v v v v" );
+    print ( "Arguments list : " );
     for arg in sorted ( vars ( args ) ):
-        print ( '{} : {}'.format ( arg.rjust ( 30 ), getattr ( args, arg ) ) );
-    print ( '^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^' );
+        print ( "{} : {}".format ( arg.rjust ( 30 ), getattr ( args, arg ) ) );
+    print ( "^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^" );
 
 
 def validate_arguments ( args: argparse.Namespace ) -> None:
@@ -64,10 +64,10 @@ def validate_arguments ( args: argparse.Namespace ) -> None:
     """
     ## --token arg check
     if ( not args.token_file ):
-        print ( 'Missing --token file. -h to show help' );
+        print ( "Missing --token file. -h to show help" );
         exit ( 2 );
     if ( not os.path.isfile ( args.token_file ) ):
-        print ( 'Argument \'--token\' do not corresponds to an existing file. -h to show help' );
+        print ( "Argument '--token' do not corresponds to an existing file. -h to show help" );
         exit ( 2 );
 
 

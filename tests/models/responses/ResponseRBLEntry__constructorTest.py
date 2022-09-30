@@ -12,21 +12,21 @@ class ResponseRBLEntry__constructorTest ( unittest.TestCase ):
     def setUp ( self ) -> None:
         ## Create parameters passed
         self.dummy_param_simple = {
-            'RBL': "dummy_rbl.com",
-            'Delist': "dummy_rbl.com/delist"
+            "RBL": "dummy_rbl.com",
+            "Delist": "dummy_rbl.com/delist"
         }
         self.dummy_param_simple_2 = {
-            'RBL': "dummy_rbl_2.com",
-            'Delist': "dummy_rbl_2.com/delist"
+            "RBL": "dummy_rbl_2.com",
+            "Delist": "dummy_rbl_2.com/delist"
         }
         self.dummy_param_incomplete = {
-            'Delist': "dummy_rbl_2.com/delist"
+            "Delist": "dummy_rbl_2.com/delist"
         }
 
         ## Create results object wanted
         self.expected_object_simple = Mock ();
-        self.expected_object_simple.delist_url = self.dummy_param_simple.get ( 'Delist' );
-        self.expected_object_simple.rbl_source = self.dummy_param_simple.get ( 'RBL' );
+        self.expected_object_simple.delist_url = self.dummy_param_simple.get ( "Delist" );
+        self.expected_object_simple.rbl_source = self.dummy_param_simple.get ( "RBL" );
         self.expected_object_simple_str = "\tdelist_url = {}\n".format ( self.expected_object_simple.delist_url ) \
                                       + "\trbl_source = {}\n".format ( self.expected_object_simple.rbl_source );
 
@@ -49,5 +49,5 @@ class ResponseRBLEntry__constructorTest ( unittest.TestCase ):
         self.assertNotEqual ( response_rbl_entry_simple, response_rbl_entry_simple_2 );
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main ();

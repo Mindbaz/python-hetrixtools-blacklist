@@ -92,5 +92,5 @@ class is_success_hetrixtools_API_call_responseTest ( unittest.TestCase ):
         self.assertFalse ( is_success_hetrixtools_API_call_response ( response = response ) );
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main ();

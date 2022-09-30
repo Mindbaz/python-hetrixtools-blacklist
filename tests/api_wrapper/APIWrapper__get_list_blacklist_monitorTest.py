@@ -80,7 +80,7 @@ class APIWrapper__get_blacklist_monitorTest( unittest.TestCase ):
     def test_get_blacklist_monitor_success ( self ):
         """API Instance"""
         api_wrapper = APIWrapper ( token_file_path = "dummy_file_path" );
-        with patch ( 'requests.get' ) as patch_request_get:
+        with patch ( "requests.get" ) as patch_request_get:
             patch_request_get.return_value = self.expected_object_simple;
             returned_object = api_wrapper.get_list_blacklist_monitor();
         self.assertEqual ( self.expected_object_simple, returned_object );
@@ -112,11 +112,11 @@ class APIWrapper__get_blacklist_monitorTest( unittest.TestCase ):
     def test_get_blacklist_monitor_error ( self ):
         """API Instance"""
         api_wrapper = APIWrapper ( token_file_path = "dummy_file_path" );
-        with patch ( 'requests.get' ) as patch_request_get:
+        with patch ( "requests.get" ) as patch_request_get:
             patch_request_get.return_value = self.expected_object_error;
             returned_object = api_wrapper.get_list_blacklist_monitor ();
         self.assertEqual ( self.expected_object_error, returned_object );
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main ();

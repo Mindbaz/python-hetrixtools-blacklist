@@ -172,7 +172,7 @@ class APIWrapper ():
             response = requests.get ( url = url, params = params );
             return response;
         except ( requests.ConnectTimeout, requests.ConnectionError ) as e:
-            print ( 'An error occured while calling get url {}, reason: {}'.format ( url, e ) );
+            print ( "An error occured while calling get url {}, reason: {}".format ( url, e ) );
             return self.__build_response_object ( status_code = 503, msg = e );
 
     def post ( self, url: str, data: dict = None ) -> requests.Response:
@@ -189,7 +189,7 @@ class APIWrapper ():
             response = requests.post ( url = url, data = data );
             return response;
         except (requests.ConnectTimeout, requests.ConnectionError) as e:
-            print ( 'An error occured while calling get url {}, reason: {}'.format ( url, e ) );
+            print ( "An error occured while calling get url {}, reason: {}".format ( url, e ) );
             return self.__build_response_object ( status_code = 503, msg = e );
 
     def __build_response_object ( self, status_code: int, msg: Optional [ str ] = None ) -> requests.Response:

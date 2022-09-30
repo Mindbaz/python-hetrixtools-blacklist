@@ -44,5 +44,6 @@ class APIWrapper__constructorTest( unittest.TestCase ):
         api_wrapper = APIWrapper ( token_file_path = "dummy_file_path" );
         self.assertEqual ( api_wrapper.endpoint_url, api_wrapper._APIWrapper__endpoint_url )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main ();

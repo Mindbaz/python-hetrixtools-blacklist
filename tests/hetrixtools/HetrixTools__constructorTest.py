@@ -15,5 +15,5 @@ class HetrixTools__constructorTest ( unittest.TestCase ):
         instance = HetrixTools ( token_file_path = "dummy_file_path" );
         self.assertEqual ( instance.api, instance._HetrixTools__api );
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main ();

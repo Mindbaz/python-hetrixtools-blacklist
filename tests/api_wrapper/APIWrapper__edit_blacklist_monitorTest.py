@@ -28,7 +28,7 @@ class APIWrapper__edit_blacklist_monitorTest ( unittest.TestCase ):
 
     def test_edit_blacklist_monitor_success ( self ):
         """API Instance"""
-        with patch ( 'requests.post' ) as patch_request_post:
+        with patch ( "requests.post" ) as patch_request_post:
             patch_request_post.return_value = self.expected_object_simple;
             api_wrapper = APIWrapper ( token_file_path = "dummy_file_path" );
             returned_object = api_wrapper.edit_blacklist_monitor (
@@ -65,5 +65,5 @@ class APIWrapper__edit_blacklist_monitorTest ( unittest.TestCase ):
         self.assertEqual ( returned_object.status_code, 503 );
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main ();

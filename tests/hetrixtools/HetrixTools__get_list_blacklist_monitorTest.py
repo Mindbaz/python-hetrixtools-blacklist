@@ -153,7 +153,7 @@ class HetrixTools__get_list_blacklist_monitorTest ( unittest.TestCase ):
 
     def test_get_list_blacklist_monitor_default_params ( self ) -> None:
         instance = HetrixTools ( token_file_path = "dummy_file_path" );
-        with patch ( 'hetrixtools_blacklist_api.api_wrapper.APIWrapper.get_list_blacklist_monitor' ) as api_wrapper_get_list_blacklist_monitor:
+        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get_list_blacklist_monitor" ) as api_wrapper_get_list_blacklist_monitor:
             ## Assign method return value to Mock object
             api_wrapper_get_list_blacklist_monitor.return_value = self.expected_object_simple;
 
@@ -171,7 +171,7 @@ class HetrixTools__get_list_blacklist_monitorTest ( unittest.TestCase ):
     def test_not_success_API_call_response ( self ):
         instance = HetrixTools ( token_file_path = "dummy_file_path" );
         list_object_expected = [];
-        with patch ( 'hetrixtools_blacklist_api.api_wrapper.APIWrapper.get_list_blacklist_monitor' ) as api_wrapper_get_list_blacklist_monitor:
+        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get_list_blacklist_monitor" ) as api_wrapper_get_list_blacklist_monitor:
             ## Assign method return value to Mock object
             api_wrapper_get_list_blacklist_monitor.return_value = self.expected_object_not_success;
 
@@ -184,7 +184,7 @@ class HetrixTools__get_list_blacklist_monitorTest ( unittest.TestCase ):
     def test_not_success_API_call_malformed_response ( self ):
         instance = HetrixTools ( token_file_path = "dummy_file_path" );
         list_object_expected = [];
-        with patch ( 'hetrixtools_blacklist_api.api_wrapper.APIWrapper.get_list_blacklist_monitor' ) as api_wrapper_get_list_blacklist_monitor:
+        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get_list_blacklist_monitor" ) as api_wrapper_get_list_blacklist_monitor:
             ## Assign method return value to Mock object
             api_wrapper_get_list_blacklist_monitor.return_value = self.expected_object_success_malformed;
 
@@ -200,7 +200,7 @@ class HetrixTools__get_list_blacklist_monitorTest ( unittest.TestCase ):
             ResponseBlacklistMonitor ( self.expected_object_success_with_next_page.json () [ 0 ] [ 0 ] ),
             ResponseBlacklistMonitor ( self.expected_object_success_without_next_page.json () [ 0 ] [ 0 ] ),
         ];
-        with patch ( 'hetrixtools_blacklist_api.api_wrapper.APIWrapper.get' ) as api_wrapper_get:
+        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get" ) as api_wrapper_get:
             api_wrapper_get.side_effect = [ self.expected_object_success_with_next_page,
                                             self.expected_object_success_without_next_page ];
 
@@ -215,7 +215,7 @@ class HetrixTools__get_list_blacklist_monitorTest ( unittest.TestCase ):
         list_object_expected = [
             ResponseBlacklistMonitor ( self.expected_object_success_with_next_page.json () [ 0 ] [ 0 ] )
         ];
-        with patch ( 'hetrixtools_blacklist_api.api_wrapper.APIWrapper.get' ) as api_wrapper_get:
+        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get" ) as api_wrapper_get:
             api_wrapper_get.side_effect = [ self.expected_object_success_with_next_page,
                                             self.expected_object_success_malformed ];
 
@@ -230,7 +230,7 @@ class HetrixTools__get_list_blacklist_monitorTest ( unittest.TestCase ):
         list_object_expected = [
             ResponseBlacklistMonitor ( self.expected_object_success_with_next_page.json () [ 0 ] [ 0 ] )
         ];
-        with patch ( 'hetrixtools_blacklist_api.api_wrapper.APIWrapper.get' ) as api_wrapper_get:
+        with patch ( "hetrixtools_blacklist_api.api_wrapper.APIWrapper.get" ) as api_wrapper_get:
             api_wrapper_get.side_effect = [ self.expected_object_success_with_next_page,
                                             self.expected_object_not_success ];
 
@@ -241,5 +241,5 @@ class HetrixTools__get_list_blacklist_monitorTest ( unittest.TestCase ):
             self.assertListEqual ( list_blacklist_monitor, list_object_expected );
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main ()

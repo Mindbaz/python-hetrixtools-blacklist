@@ -27,7 +27,7 @@ class APIWrapper__list_contact_listsTest ( unittest.TestCase ):
 
     def test_list_contact_lists_success ( self ):
         """API Instance"""
-        with patch ( 'requests.get' ) as patch_request_get:
+        with patch ( "requests.get" ) as patch_request_get:
             patch_request_get.return_value = self.expected_object_simple;
             api_wrapper = APIWrapper ( token_file_path = "dummy_file_path" );
             returned_object = api_wrapper.list_contact_lists ();
@@ -58,5 +58,5 @@ class APIWrapper__list_contact_listsTest ( unittest.TestCase ):
         self.assertEqual ( returned_object.status_code, 503 );
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main ();

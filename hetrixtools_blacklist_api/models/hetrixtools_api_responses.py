@@ -44,9 +44,9 @@ class APIResponseBlacklistMonitor ():
         self.status_code: int = int ( status_code );
         self.ok: bool = True if self.status_code < 400 else False;
         self.list_blacklist_monitor: List [ ResponseBlacklistMonitor ] = self.__parse_list_blacklist_monitor ( raw_json [ 0 ] )
-        self.total_records: int = raw_json [ 1 ] [ 'Meta' ].get ( 'Total_Records', 0 );
-        self.previous_page_call_url: str = raw_json [ 1 ] [ 'Links' ] [ 'Pages' ].get ( 'Prev', None );
-        self.next_page_call_url: str = raw_json [ 1 ] [ 'Links' ] [ 'Pages' ].get ( 'Next', None );
+        self.total_records: int = raw_json [ 1 ] [ "Meta" ].get ( "Total_Records", 0 );
+        self.previous_page_call_url: str = raw_json [ 1 ] [ "Links" ] [ "Pages" ].get ( "Prev", None );
+        self.next_page_call_url: str = raw_json [ 1 ] [ "Links" ] [ "Pages" ].get ( "Next", None );
 
     def __parse_list_blacklist_monitor ( self, raw_json: dict ) -> List [ ResponseBlacklistMonitor ]:
         """Parse raw json returned by the API into a custom object
