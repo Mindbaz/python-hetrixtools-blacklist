@@ -64,10 +64,10 @@ class HetrixTools ():
         total_list_blacklist_monitor = [ ];
         ## Get first page list of blacklist monitor
         request_response = self.api.get_list_blacklist_monitor ( page_number = 0, result_per_page = 1024 );
-        if is_success_hetrixtools_API_call_response ( request_response ):
+        if is_success_hetrixtools_API_call_response ( response = request_response ):
             try:
                 ## Build object from raw dict response
-                response_object = APIResponseBlacklistMonitor ( request_response.status_code, request_response.json () )
+                response_object = APIResponseBlacklistMonitor ( status_code = request_response.status_code, raw_json = request_response.json () )
             except (KeyError, TypeError) as e:
                 print ( "Unexpected response received, cannot parse it. Error: {}".format ( e ) );
                 return total_list_blacklist_monitor;
@@ -75,10 +75,10 @@ class HetrixTools ():
             total_list_blacklist_monitor.extend ( response_object.list_blacklist_monitor );
             ## loop until there is another page to query
             while response_object.next_page_call_url is not None:
-                request_response = self.api.get ( response_object.next_page_call_url );
-                if is_success_hetrixtools_API_call_response ( request_response ):
+                request_response = self.api.get ( url = response_object.next_page_call_url );
+                if is_success_hetrixtools_API_call_response ( response = request_response ):
                     try:
-                        response_object = APIResponseBlacklistMonitor ( request_response.status_code, request_response.json () )
+                        response_object = APIResponseBlacklistMonitor ( status_code = request_response.status_code,raw_json = request_response.json () )
                     except (KeyError, TypeError) as e:
                         print ( "Unexpected response received, cannot parse it. Error: {}".format ( e ) );
                         return total_list_blacklist_monitor;
