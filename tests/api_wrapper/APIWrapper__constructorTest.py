@@ -36,6 +36,13 @@ class APIWrapper__constructorTest( unittest.TestCase ):
         api_wrapper = APIWrapper ( token_file_path = "dummy_file_path", verbose = True );
         self.assertTrue ( api_wrapper.verbose );
 
+    def test_token_property ( self ):
+        api_wrapper = APIWrapper ( token_file_path = "dummy_file_path" );
+        self.assertEqual ( api_wrapper.token, api_wrapper._APIWrapper__token );
+
+    def test_endpoint_url_property ( self ):
+        api_wrapper = APIWrapper ( token_file_path = "dummy_file_path" );
+        self.assertEqual ( api_wrapper.endpoint_url, api_wrapper._APIWrapper__endpoint_url )
 
 if __name__ == '__main__':
     unittest.main ();

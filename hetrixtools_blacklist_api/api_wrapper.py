@@ -82,7 +82,7 @@ class APIWrapper ():
             requests.Response: response returned by HetrixTools API
         """
         route = "v2/{}/blacklist/monitors/{}/{}/"\
-            .format ( self.__token, int ( page_number ), int ( result_per_page ) );
+            .format ( self.token, int ( page_number ), int ( result_per_page ) );
         response = self.get ( url = self.__endpoint_url + route );
         return response;
 
@@ -97,13 +97,13 @@ class APIWrapper ():
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        route = "v2/{}/blacklist/add/".format ( self.__token );
+        route = "v2/{}/blacklist/add/".format ( self.token );
         data_object = {
             "target": str ( target ),
             "label": str ( label ),
             "contact": str ( contact )
         };
-        response = self.post ( url = self.__endpoint_url + route, data = data_object );
+        response = self.post ( url = self.endpoint_url + route, data = data_object );
         return response;
 
     def edit_blacklist_monitor ( self, target: str, label: str, contact: str ) -> requests.Response:
@@ -117,13 +117,13 @@ class APIWrapper ():
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        route = "v2/{}/blacklist/edit/".format ( self.__token );
+        route = "v2/{}/blacklist/edit/".format ( self.token );
         data_object = {
             "target": str ( target ),
             "label": str ( label ),
             "contact": str ( contact )
         };
-        return self.post ( url = self.__endpoint_url + route, data = data_object );
+        return self.post ( url = self.endpoint_url + route, data = data_object );
 
     def delete_blacklist_monitor ( self, target: str ) -> requests.Response:
         """Call HetrixTools API to delete an existing blacklist monitor
@@ -134,11 +134,11 @@ class APIWrapper ():
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        route = "v2/{}/blacklist/delete/".format ( self.__token );
+        route = "v2/{}/blacklist/delete/".format ( self.token );
         data_object = {
             "target": target
         };
-        return self.post ( url = self.__endpoint_url + route, data = data_object );
+        return self.post ( url = self.endpoint_url + route, data = data_object );
 
     def api_status ( self ) -> requests.Response:
         """Call HetrixTools API to get account status about API remaining calls
@@ -146,8 +146,8 @@ class APIWrapper ():
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        route = "v1/{}/status/".format ( self.__token );
-        return self.get ( url = self.__endpoint_url + route );
+        route = "v1/{}/status/".format ( self.token );
+        return self.get ( url = self.endpoint_url + route );
 
     def list_contact_lists ( self ) -> requests.Response:
         """Call hetrixTools API to get list of contacts ID
@@ -155,8 +155,8 @@ class APIWrapper ():
         Returns:
             requests.Response: response returned by HetrixTools API
         """
-        route = "v1/{}/contacts/".format ( self.__token );
-        return self.get ( url = self.__endpoint_url + route );
+        route = "v1/{}/contacts/".format ( self.token );
+        return self.get ( url = self.endpoint_url + route );
 
     def get ( self, url: str, params: dict = None ) -> requests.Response:
         """Calls an API REST route: GET

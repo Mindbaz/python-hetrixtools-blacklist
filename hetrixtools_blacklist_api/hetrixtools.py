@@ -43,6 +43,15 @@ class HetrixTools ():
         """API instance"""
         self.__api = APIWrapper ( token_file_path = token_file_path, use_relay_endpoint = use_relay_endpoint, verbose = verbose );
 
+    @property
+    def api ( self ) -> APIWrapper:
+        """Token getter
+
+        Returns:
+            APIWrapper: __token attribute
+        """
+        return self.__api;
+
     def get_list_blacklist_monitor ( self ) -> List [ ResponseBlacklistMonitor ]:
         """Get the whole list of blacklist monitor managed by HetrixTools
 
@@ -54,7 +63,7 @@ class HetrixTools ():
         """
         total_list_blacklist_monitor = [ ];
         ## Get first page list of blacklist monitor
-        request_response = self.__api.get_list_blacklist_monitor ( page_number = 0, result_per_page = 1024 );
+        request_response = self.api.get_list_blacklist_monitor ( page_number = 0, result_per_page = 1024 );
         if is_success_hetrixtools_API_call_response ( request_response ):
             try:
                 ## Build object from raw dict response
@@ -66,7 +75,7 @@ class HetrixTools ():
             total_list_blacklist_monitor.extend ( response_object.list_blacklist_monitor );
             ## loop until there is another page to query
             while response_object.next_page_call_url is not None:
-                request_response = self.__api.get ( response_object.next_page_call_url );
+                request_response = self.api.get ( response_object.next_page_call_url );
                 if is_success_hetrixtools_API_call_response ( request_response ):
                     try:
                         response_object = APIResponseBlacklistMonitor ( request_response.status_code, request_response.json () )
