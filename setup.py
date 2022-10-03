@@ -36,6 +36,7 @@ setup (
     license = 'GPLv3',
     packages = [
         'hetrixtools_blacklist_api',
+        'hetrixtools_blacklist_api.models',
         'entry_points_hetrixtools_blacklist_api'
     ],
     install_requires = [
