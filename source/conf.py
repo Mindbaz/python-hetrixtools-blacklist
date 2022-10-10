@@ -36,6 +36,11 @@ project = 'Python HetrixTools Blacklist'
 copyright = '2022, Mindbaz'
 author = 'cducatez@mindbaz.com'
 
+import os;
+import sys;
+
+sys.path.insert ( 0, os.path.dirname ( os.path.dirname ( os.path.abspath ( __file__ ) ) ) );
+
 from hetrixtools_blacklist_api import __version__;
 
 # The full version, including alpha/beta/rc tags

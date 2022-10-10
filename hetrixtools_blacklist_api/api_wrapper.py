@@ -160,11 +160,11 @@ class APIWrapper ():
 
     def get ( self, url: str, params: dict = None ) -> requests.Response:
         """Calls an API REST route: GET
--
+
         Args:
             url: url to call
             params: params for this call
--
+
         Returns:
             requests.Response: response returned by HetrixTools API
         """
@@ -177,11 +177,11 @@ class APIWrapper ():
 
     def post ( self, url: str, data: dict = None ) -> requests.Response:
         """Calls an API REST route: POST
--
+
         Args:
             url: url to call
             data: data for this call
--
+
         Returns:
             requests.Response: response returned by HetrixTools API
         """

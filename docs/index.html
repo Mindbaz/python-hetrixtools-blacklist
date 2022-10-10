@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HetrixTools Blacklist &mdash; Python HetrixTools Blacklist 0.0.0 documentation</title>
+  <title>HetrixTools Blacklist &mdash; Python HetrixTools Blacklist 0.0.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -62,9 +62,11 @@
 <li><a class="reference internal" href="#hetrixtools_blacklist_api.hetrixtools.HetrixTools"><code class="docutils literal notranslate"><span class="pre">HetrixTools</span></code></a><ul>
 <li><a class="reference internal" href="#hetrixtools_blacklist_api.hetrixtools.HetrixTools.__api"><code class="docutils literal notranslate"><span class="pre">HetrixTools.__api</span></code></a></li>
 <li><a class="reference internal" href="#hetrixtools_blacklist_api.hetrixtools.HetrixTools.__init__"><code class="docutils literal notranslate"><span class="pre">HetrixTools.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#hetrixtools_blacklist_api.hetrixtools.HetrixTools.api"><code class="docutils literal notranslate"><span class="pre">HetrixTools.api</span></code></a></li>
 <li><a class="reference internal" href="#hetrixtools_blacklist_api.hetrixtools.HetrixTools.get_list_blacklist_monitor"><code class="docutils literal notranslate"><span class="pre">HetrixTools.get_list_blacklist_monitor()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#hetrixtools_blacklist_api.utils.is_success_hetrixtools_API_call_response"><code class="docutils literal notranslate"><span class="pre">is_success_hetrixtools_API_call_response()</span></code></a></li>
 <li><a class="reference internal" href="#hetrixtools_blacklist_api.utils.read_file"><code class="docutils literal notranslate"><span class="pre">read_file()</span></code></a></li>
 <li><a class="reference internal" href="#models">Models</a><ul>
 <li><a class="reference internal" href="#hetrixtools_blacklist_api.models.hetrixtools_api_responses.APIResponseBlacklistMonitor"><code class="docutils literal notranslate"><span class="pre">APIResponseBlacklistMonitor</span></code></a><ul>
@@ -75,11 +77,6 @@
 <li><a class="reference internal" href="#hetrixtools_blacklist_api.models.hetrixtools_api_responses.APIResponseBlacklistMonitor.previous_page_call_url"><code class="docutils literal notranslate"><span class="pre">APIResponseBlacklistMonitor.previous_page_call_url</span></code></a></li>
 <li><a class="reference internal" href="#hetrixtools_blacklist_api.models.hetrixtools_api_responses.APIResponseBlacklistMonitor.next_page_call_url"><code class="docutils literal notranslate"><span class="pre">APIResponseBlacklistMonitor.next_page_call_url</span></code></a></li>
 <li><a class="reference internal" href="#hetrixtools_blacklist_api.models.hetrixtools_api_responses.APIResponseBlacklistMonitor.__init__"><code class="docutils literal notranslate"><span class="pre">APIResponseBlacklistMonitor.__init__()</span></code></a></li>
-<li><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">APIResponseBlacklistMonitor.list_blacklist_monitor</span></code></a></li>
-<li><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">APIResponseBlacklistMonitor.ok</span></code></a></li>
-<li><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">APIResponseBlacklistMonitor.previous_page_call_url</span></code></a></li>
-<li><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">APIResponseBlacklistMonitor.status_code</span></code></a></li>
-<li><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">APIResponseBlacklistMonitor.total_records</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#hetrixtools_blacklist_api.models.responses.ResponseBlacklistMonitor"><code class="docutils literal notranslate"><span class="pre">ResponseBlacklistMonitor</span></code></a><ul>
@@ -294,22 +291,21 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="hetrixtools_blacklist_api.api_wrapper.APIWrapper.get">
 <span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="headerlink" href="#hetrixtools_blacklist_api.api_wrapper.APIWrapper.get" title="Permalink to this definition"></a></dt>
-<dd><p>Calls an API REST route: GET
--</p>
-<blockquote>
-<div><dl class="simple">
-<dt>Args:</dt><dd><p>url: url to call
-params: params for this call</p>
-</dd>
-</dl>
-</div></blockquote>
-<ul class="simple">
-<li><dl class="simple">
-<dt>Returns:</dt><dd><p>requests.Response: response returned by HetrixTools API</p>
-</dd>
-</dl>
-</li>
+<dd><p>Calls an API REST route: GET</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – url to call</p></li>
+<li><p><strong>params</strong> – params for this call</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>response returned by HetrixTools API</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>requests.Response</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -349,22 +345,21 @@ params: params for this call</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hetrixtools_blacklist_api.api_wrapper.APIWrapper.post">
 <span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="headerlink" href="#hetrixtools_blacklist_api.api_wrapper.APIWrapper.post" title="Permalink to this definition"></a></dt>
-<dd><p>Calls an API REST route: POST
--</p>
-<blockquote>
-<div><dl class="simple">
-<dt>Args:</dt><dd><p>url: url to call
-data: data for this call</p>
-</dd>
-</dl>
-</div></blockquote>
-<ul class="simple">
-<li><dl class="simple">
-<dt>Returns:</dt><dd><p>requests.Response: response returned by HetrixTools API</p>
-</dd>
-</dl>
-</li>
+<dd><p>Calls an API REST route: POST</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – url to call</p></li>
+<li><p><strong>data</strong> – data for this call</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>response returned by HetrixTools API</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>requests.Response</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -420,6 +415,20 @@ data: data for this call</p>
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="hetrixtools_blacklist_api.hetrixtools.HetrixTools.api">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">api</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#hetrixtools_blacklist_api.api_wrapper.APIWrapper" title="hetrixtools_blacklist_api.api_wrapper.APIWrapper"><span class="pre">APIWrapper</span></a></em><a class="headerlink" href="#hetrixtools_blacklist_api.hetrixtools.HetrixTools.api" title="Permalink to this definition"></a></dt>
+<dd><p>Token getter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>__token attribute</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#hetrixtools_blacklist_api.api_wrapper.APIWrapper" title="hetrixtools_blacklist_api.api_wrapper.APIWrapper">APIWrapper</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="hetrixtools_blacklist_api.hetrixtools.HetrixTools.get_list_blacklist_monitor">
 <span class="sig-name descname"><span class="pre">get_list_blacklist_monitor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#hetrixtools_blacklist_api.models.responses.ResponseBlacklistMonitor" title="hetrixtools_blacklist_api.models.responses.ResponseBlacklistMonitor"><span class="pre">ResponseBlacklistMonitor</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hetrixtools_blacklist_api.hetrixtools.HetrixTools.get_list_blacklist_monitor" title="Permalink to this definition"></a></dt>
@@ -442,8 +451,25 @@ data: data for this call</p>
 
 <p>This module contains some utils functions</p>
 <span class="target" id="module-hetrixtools_blacklist_api.utils"></span><dl class="py function">
+<dt class="sig sig-object py" id="hetrixtools_blacklist_api.utils.is_success_hetrixtools_API_call_response">
+<span class="sig-prename descclassname"><span class="pre">hetrixtools_blacklist_api.utils.</span></span><span class="sig-name descname"><span class="pre">is_success_hetrixtools_API_call_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Response</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#hetrixtools_blacklist_api.utils.is_success_hetrixtools_API_call_response" title="Permalink to this definition"></a></dt>
+<dd><p>Check the given response object and returns</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>response</strong> – the response object to check</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True when the API returned a success (in terms of HetrixTools API) response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="hetrixtools_blacklist_api.utils.read_file">
-<span class="sig-prename descclassname"><span class="pre">hetrixtools_blacklist_api.utils.</span></span><span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#hetrixtools_blacklist_api.utils.read_file" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">hetrixtools_blacklist_api.utils.</span></span><span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'utf-8'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#hetrixtools_blacklist_api.utils.read_file" title="Permalink to this definition"></a></dt>
 <dd><p>Read a file and returns its content</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -451,7 +477,6 @@ data: data for this call</p>
 <li><p><strong>file_path</strong> – Path to the file to read</p></li>
 <li><p><strong>open_mode</strong> – String representing the open mode to use (“r” by default)</p></li>
 <li><p><strong>encoding</strong> – String representing the encoding to use (“utf-8” by default)</p></li>
-<li><p><strong>verbose</strong> – Verbose mode (False by default)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -520,31 +545,6 @@ data: data for this call</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">list_blacklist_monitor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#hetrixtools_blacklist_api.models.responses.ResponseBlacklistMonitor" title="hetrixtools_blacklist_api.models.responses.ResponseBlacklistMonitor"><span class="pre">ResponseBlacklistMonitor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id1" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">ok</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#id2" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id3">
-<span class="sig-name descname"><span class="pre">previous_page_call_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id3" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id4">
-<span class="sig-name descname"><span class="pre">status_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id4" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id5">
-<span class="sig-name descname"><span class="pre">total_records</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id5" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <p>This module contains models returned by this project</p>
@@ -567,7 +567,7 @@ data: data for this call</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="hetrixtools_blacklist_api.models.responses.ResponseBlacklistMonitor.target">
 <span class="sig-name descname"><span class="pre">target</span></span><a class="headerlink" href="#hetrixtools_blacklist_api.models.responses.ResponseBlacklistMonitor.target" title="Permalink to this definition"></a></dt>
-<dd><p>IP or Domain address monitored (depending of the type)</p>
+<dd><p>IP or Domain address monitored (depends of the type)</p>
 </dd></dl>
 
 <dl class="py attribute">
