@@ -1,0 +1,247 @@
+{
+  "info": {
+    "_postman_id": "56c131d0-dc23-4cd3-a5ec-2f45fa02d63e",
+    "name": "HetrixTools - Blacklist",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Blacklist",
+      "item": [
+        {
+          "name": "List blacklist monitor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://{{URL}}/v2/{{API_TOKEN}}/blacklist/monitors/{{PAGE}}/{{PER_PAGE}}",
+              "protocol": "https",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "v2",
+                "{{API_TOKEN}}",
+                "blacklist",
+                "monitors",
+                "{{PAGE}}",
+                "{{PER_PAGE}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add blacklist monitor",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "target",
+                  "value": "1.2.3.4",
+                  "type": "default"
+                },
+                {
+                  "key": "label",
+                  "value": "{{TEST_LABEL}}",
+                  "type": "default"
+                },
+                {
+                  "key": "contact",
+                  "value": "{{CONTACT_ID}}",
+                  "type": "default"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://{{URL}}/v2/{{API_TOKEN}}/blacklist/add/",
+              "protocol": "https",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "v2",
+                "{{API_TOKEN}}",
+                "blacklist",
+                "add",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remove blacklist monitor",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "target",
+                  "value": "1.2.3.4",
+                  "type": "default"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://{{URL}}/v2/{{API_TOKEN}}/blacklist/delete/",
+              "protocol": "https",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "v2",
+                "{{API_TOKEN}}",
+                "blacklist",
+                "delete",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Edit blacklist monitor",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "target",
+                  "value": "1.2.3.4",
+                  "type": "default"
+                },
+                {
+                  "key": "label",
+                  "value": "{{TEST_LABEL}}-test",
+                  "type": "default"
+                },
+                {
+                  "key": "contact",
+                  "value": "{{CONTACT_ID}}",
+                  "type": "default"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://{{URL}}/v2/{{API_TOKEN}}/blacklist/edit/",
+              "protocol": "https",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "v2",
+                "{{API_TOKEN}}",
+                "blacklist",
+                "edit",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API Status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://{{URL}}/v1/{{API_TOKEN}}/status/",
+          "protocol": "https",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "v1",
+            "{{API_TOKEN}}",
+            "status",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Contact lists",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://{{URL}}/v1/{{API_TOKEN}}/contacts/",
+          "protocol": "https",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "v1",
+            "{{API_TOKEN}}",
+            "contacts",
+            ""
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "API_TOKEN",
+      "value": null,
+      "type": "default"
+    },
+    {
+      "key": "PAGE",
+      "value": "0",
+      "type": "default"
+    },
+    {
+      "key": "PER_PAGE",
+      "value": "1024",
+      "type": "default"
+    },
+    {
+      "key": "URL",
+      "value": "api.hetrixtools.com",
+      "type": "default"
+    },
+    {
+      "key": "URL",
+      "value": "relay.hetrixtools.com/api",
+      "type": "default",
+      "disabled": true
+    },
+    {
+      "key": "CONTACT_ID",
+      "value": ""
+    }
+  ]
+}
