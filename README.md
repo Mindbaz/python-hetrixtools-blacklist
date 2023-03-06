@@ -1,6 +1,6 @@
 # python-hetrixtools-blacklist
 
-Unofficial tool to retrieve data from HetrixTools API about blacklist monitoring. The recovered data will
+Unofficial tool to retrieve data from [HetrixTools](https://hetrixtools.com/) API about blacklist monitoring. The recovered data will
 offer a simple schema in order to be able to easily save this data in a flat
 file or in database.
 
